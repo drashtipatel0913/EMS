@@ -1,14 +1,36 @@
 const { gql } = require('apollo-server')
 
 module.exports = gql`
+
+enum Title{
+   Employee
+   Manager
+   Director
+   VP
+}
+
+enum Department{
+   IT
+   Marketing
+   HR
+   Engineering
+}
+
+enum EmployeeType{
+   FullTime
+   PartTime
+   Contract
+   Seasonal
+}
+
 type Employee{
       firstName: String
       lastName: String
       age: Int
       dateOfJoining: String
-      title: String
-      department: String
-      employeeType: String
+      title: Title
+      department: Department
+      employeeType: EmployeeType
       currentStatus: Boolean
 }
 
@@ -16,9 +38,9 @@ input employeeInput{
    firstName: String
    lastName: String
    age: Int
-   title: String
-   department: String
-   employeeType: String
+   title: Title
+   department: Department
+   employeeType: EmployeeType
 }
 
 type Query{
