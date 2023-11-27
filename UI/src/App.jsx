@@ -1,71 +1,21 @@
-class EmployeeSearch extends React.Component {
-   render() {
-      return (
-         <div>This is EmployeeSearch</div>
-      )
-   }
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { Route, Routes, HashRouter } from "react-router-dom";
+
+import EmployeeDirectory from "./EmployeeDirectory.jsx";
+
+class App extends React.Component {
+  render() {
+    return (
+      <Routes>
+        <Route path="/" element={<EmployeeDirectory />} />
+      </Routes>
+    );
+  }
 }
 
-class EmployeeRow extends React.Component {
-   render() {
-      return (
-         <tr>
-            <td>id</td>
-            <td>firstname</td>
-            <td>lastname</td>
-            <td>age</td>
-            <td>title</td>
-            <td>dob</td>
-         </tr>
-      )
-   }
-}
+const element = document.getElementById("contents");
 
-class EmployeeTable extends React.Component {
-   render() {
-      return (
-         <table className="bordered-table">
-            <thead>
-               <tr>
-                  <th>Id</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Age</th>
-                  <th>Title</th>
-                  <th>Date of Birth</th>
-               </tr>
-            </thead>
-            <tbody>
-               <EmployeeRow />
-               <EmployeeRow />
-               <EmployeeRow />
-            </tbody>
-         </table>
-      )
-   }
-}
-class EmployeeCreate extends React.Component {
-   render() {
-      return (
-         <div>This is EmployeeCreate</div>
-      )
-   }
-}
-class EmployeeDirectory extends React.Component {
-   render() {
-      return (
-         <React.Fragment>
-            <h1>Employee Management System</h1>
-            <EmployeeSearch />
-            <hr />
-            <EmployeeTable />
-            <hr />
-            <EmployeeCreate />
-         </React.Fragment>
-      )
-   }
-}
-
-const element = <EmployeeDirectory />
-
-ReactDOM.render(element, document.getElementById('contents'));
+// Use createRoot to render your app
+const root = ReactDOM.createRoot(element);
+root.render(<HashRouter><App /></HashRouter>);

@@ -24,33 +24,44 @@ enum EmployeeType{
 }
 
 type Employee{
+   id:ID!
+   firstName: String
+   lastName: String
+   age: Int
+   dateOfJoining: String
+   title: Title   
+   department: Department
+   employeeType: EmployeeType
+   currentStatus: Boolean
+}
+   
+type Query {
+    employeeRecords : [Employee]!,
+    employeeData(Id : String!) : Employee!,
+    employeeTypeList(type : String!) : [Employee],
+}
+
+type Mutation{
+   createEmployee(
       firstName: String
       lastName: String
       age: Int
       dateOfJoining: String
-      title: Title
+      title: Title   
       department: Department
       employeeType: EmployeeType
       currentStatus: Boolean
-}
+    ) : Employee 
 
-input employeeInput{
-   firstName: String
-   lastName: String
-   age: Int
-   title: Title
-   department: Department
-   employeeType: EmployeeType
-}
 
-type Query{
-   employee(ID: ID!): Employee!
-   getEmployees(amount: Int): [Employee]
-}
-
-type Mutation{
-   createEmployee(employeeInput: employeeInput): Employee!
-   deleteEmployee(ID: ID!):Boolean
-   updateEmployee(ID: ID!, employeeInput: employeeInput): Boolean
+    updateEmployee (
+      id:ID!
+      title: Title
+      department: Department
+      currentStatus: Boolean
+    ) : Employee! 
+  
+    deleteEmployee (Id : ID!) 
+    : Employee! 
 }
 `

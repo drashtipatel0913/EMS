@@ -6,10 +6,8 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Employee Management System</title>
 
-   <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
-   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-
-   <script src="https://unpkg.com/@babel/polyfill@7/dist/polyfill.min.js"></script>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
    <style>
       table.bordered-table th,
@@ -21,6 +19,16 @@
       table.bordered-table {
          border-collapse: collapse;
       }
+
+      .error-txt {
+         color: red;
+         font-weight: bold;
+      }
+
+      .success-txt {
+         color: green;
+         font-weight: bold;
+      }
    </style>
 
 </head>
@@ -28,8 +36,8 @@
 <body>
    <div id="contents"></div>
 
-   <script src="../scripts/env.js"></script>
-   <script src="/App.js"></script>
+   <script src="vendor.bundle.js/main.js"></script>
+   <script src="app.bundle.js/main.js"></script>
 </body>
 
 </html>
