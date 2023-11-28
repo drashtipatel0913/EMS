@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { useParams, Link } from 'react-router-dom'
 
 export default class EmployeeTable extends Component {
 
@@ -49,7 +50,8 @@ export default class EmployeeTable extends Component {
             <td>{row.department}</td>
             <td>{row.currentStatus ? 'Working' : 'Retired'}</td>
             <td>
-               <button className='btn btn-primary me-3'>Edit</button>
+               <Link className='btn btn-primary me-3' to={"/Update/" + row.id}>Update</Link>
+               {/* <button className='btn btn-primary me-3'>Edit</button> */}
                <button className='btn btn-danger' onClick={() => this.doDelete(row.id)}>Delete</button>
             </td>
          </tr>

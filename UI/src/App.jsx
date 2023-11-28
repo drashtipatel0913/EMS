@@ -3,12 +3,14 @@ import ReactDOM from "react-dom/client";
 import { Route, Routes, HashRouter } from "react-router-dom";
 
 import EmployeeDirectory from "./EmployeeDirectory.jsx";
+import EmployeeUpdate from "./EmployeeUpdate.jsx";
 
 class App extends React.Component {
   render() {
     return (
       <Routes>
         <Route path="/" element={<EmployeeDirectory />} />
+        <Route path="/Update/:id" element={ <EmployeeUpdate /> }  />
       </Routes>
     );
   }
