@@ -97,16 +97,15 @@ export default class EmployeeCreate extends Component {
          return Object.keys(errorlist).map((key) => {
             const errors = errorlist[key];
             return errors.map((error, index) => (
-               <p key={index} className="error-txt">{error}</p>
+               <p key={index} className="text-danger">{error}</p>
             ));
          });
       };
 
       return <React.Fragment>
          <form onSubmit={this.createForm} className=" text-center form">
-            {renderErrors()}
             <h3 className="success-txt">{this.state.msg}</h3>
-            <table className='container w-25 table-borderless table' cellPadding={10}>
+            <table className='container w-50 table-borderless table' cellPadding={10}>
                <tbody>
                   <tr>
                      <th>
@@ -114,6 +113,9 @@ export default class EmployeeCreate extends Component {
                      </th>
                      <td>
                         <input type="text" className='form-control' name="firstName" />
+                     </td>
+                     <td rowSpan={8}>
+                        {renderErrors()}
                      </td>
                   </tr>
                   <tr>
