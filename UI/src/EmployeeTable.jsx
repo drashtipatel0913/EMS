@@ -58,7 +58,8 @@ export default class EmployeeTable extends Component {
       ));
 
       return (
-         <table className="table bordered-table">
+      <div className='py-5'>
+         <table className="container w-75 table table-hover bordered-table">
             <thead>
                <tr>
                   <th>First name</th>
@@ -76,6 +77,7 @@ export default class EmployeeTable extends Component {
                {rows}
             </tbody>
          </table>
+      </div>
       )
    }
 }

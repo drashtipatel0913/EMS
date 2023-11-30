@@ -100,9 +100,7 @@ export default class EmployeeDirectory extends Component {
          <React.Fragment>
             <h1 className='text-center m-3'>Employee Management System</h1>
             <EmployeeSearch />
-            <hr />
-            <EmployeeTable employees={this.state.employees} getemployees={this.getemployees} />
-            <hr />
+            <EmployeeTable employees={this.state.employees} getemployees={this.getemployees}/>
             <EmployeeCreate createEmployee={this.createEmployee} />
          </React.Fragment>
       )

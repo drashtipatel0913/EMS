@@ -5,7 +5,15 @@ export default class EmployeeCreate extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         errorlist: [],
+         errorlist: {
+            fname: [],
+            lname: [],
+            doj: [],
+            age: [],
+            title: [],
+            empType: [],
+            dep: []
+         },
          message: ''
       },
          this.createForm = this.createForm.bind(this);
@@ -15,32 +23,41 @@ export default class EmployeeCreate extends Component {
       formData.preventDefault();
       this.setState({ msg: '' })
 
-      let errors = [];
+      let errors = {
+         fname: [],
+         lname: [],
+         doj: [],
+         age: [],
+         title: [],
+         empType: [],
+         dep: []
+      }
 
       if (!formData.target.firstName.value) {
-         errors.push('Firstname is required');
+         errors.fname.push('Firstname is required');
       }
       if (!formData.target.lastName.value) {
-         errors.push('Lastname is required');
+         errors.lname.push('Lastname is required');
       }
       if (!formData.target.dateOfJoining.value) {
-         errors.push('Date of Joining is required');
+         errors.doj.push('Date of Joining is required');
       }
       if (!formData.target.age.value) {
-         errors.push('Age is required');
+         errors.age.push('Age is required');
       }
       if (parseInt(formData.target.age.value) < 20 || parseInt(formData.target.age.value) > 70) {
-         errors.push('Age should be between 20 to 70');
+         errors.age.push('Age should be between 20 to 70');
       }
       if (!formData.target.title.value) {
-         errors.push('Title is required');
+         errors.title.push('Title is required');
       }
       if (!formData.target.employeeType.value) {
-         errors.push('Employee type is required');
+         errors.empType.push('Employee type is required');
       }
       if (!formData.target.department.value) {
-         errors.push('Department is required');
+         errors.dep.push('Department is required');
       }
+
       this.setState({ errorlist: errors })
 
       if (errors.length == 0) {
@@ -74,56 +91,102 @@ export default class EmployeeCreate extends Component {
    }
    render() {
 
-      const errorlist = this.state.errorlist.map((error, index) => <p key={index} className="error-txt">{error}</p>)
+      const { errorlist } = this.state;
+
+      const renderErrors = () => {
+         return Object.keys(errorlist).map((key) => {
+            const errors = errorlist[key];
+            return errors.map((error, index) => (
+               <p key={index} className="error-txt">{error}</p>
+            ));
+         });
+      };
 
       return <React.Fragment>
-         <form onSubmit={this.createForm} className="text-center form">
-            {errorlist}
+         <form onSubmit={this.createForm} className=" text-center form">
+            {renderErrors()}
             <h3 className="success-txt">{this.state.msg}</h3>
-            <div>
-               <label>First Name:</label>
-               <input type="text" name="firstName" />
-            </div>
-            <div>
-               <label>Last Name:</label>
-               <input type="text" name="lastName" />
-            </div>
-            <div>
-               <label>Age:</label>
-               <input type="number" id="age" name="age" />
-            </div>
-            <div>
-               <label>Date of joining:</label>
-               <input type="date" name="dateOfJoining" />
-            </div>
-            <div>
-               <label>Title:</label>
-               <select name="title">
-                  <option value="Director">Director</option>
-                  <option value="Employee">Employee</option>
-                  <option value="VP">VP</option>
-                  <option value="Manager">Manager</option>
-               </select>
-            </div>
-            <div>
-               <label>Department:</label>
-               <select name="department">
-                  <option value="Engineering">Engineering</option>
-                  <option value="HR">HR</option>
-                  <option value="IT">IT</option>
-                  <option value="Marketing">Marketing</option>
-               </select>
-            </div>
-            <div>
-               <label>Employee of Type:</label>
-               <select name="employeeType">
-                  <option value="FullTime">FullTime</option>
-                  <option value="PartTime">PartTime</option>
-                  <option value="Contract">Contract</option>
-                  <option value="Seasonal">Seasonal</option>
-               </select>
-            </div>
-            <button className='btn btn-secondary' type="submit">Create Employee</button>
+            <table className='container w-25 table-borderless table' cellPadding={10}>
+               <tbody>
+                  <tr>
+                     <th>
+                        <label>First Name:</label>
+                     </th>
+                     <td>
+                        <input type="text" className='form-control' name="firstName" />
+                     </td>
+                  </tr>
+                  <tr>
+                     <th>
+                        <label>Last Name:</label>
+                     </th>
+                     <td>
+                        <input type="text" className='form-control' name="lastName" />
+                     </td>
+                  </tr>
+                  <tr>
+                     <th>
+                        <label>Age:</label>
+                     </th>
+                     <td>
+                        <input type="number" id="age" name="age" className='form-control' />
+
+                     </td>
+                  </tr>
+                  <tr>
+                     <th>
+                        <label>Date of joining:</label>
+                     </th>
+                     <td>
+                        <input type="date" name="dateOfJoining" className='form-control' />
+                     </td>
+                  </tr>
+                  <tr>
+                     <th>
+                        <label>Title:</label>
+                     </th>
+                     <td>
+                        <select name="title" className="form-select">
+                           <option value="Director">Director</option>
+                           <option value="Employee">Employee</option>
+                           <option value="VP">VP</option>
+                           <option value="Manager">Manager</option>
+                        </select>
+                     </td>
+                  </tr>
+                  <tr>
+                     <th>
+                        <label>Department:</label>
+                     </th>
+                     <td>
+                        <select name="department" className="form-select">
+                           <option value="Engineering">Engineering</option>
+                           <option value="HR">HR</option>
+                           <option value="IT">IT</option>
+                           <option value="Marketing">Marketing</option>
+                        </select>
+                     </td>
+                  </tr>
+                  <tr>
+                     <th>
+                        <label>Employee of Type:</label>
+                     </th>
+                     <td>
+                        <select name="employeeType" className="form-select">
+                           <option value="FullTime">FullTime</option>
+                           <option value="PartTime">PartTime</option>
+                           <option value="Contract">Contract</option>
+                           <option value="Seasonal">Seasonal</option>
+                        </select>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td colSpan="2">
+                        <button className='btn w-100 btn-outline-dark' type="submit">Create Employee</button>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
          </form>
       </React.Fragment>
    }

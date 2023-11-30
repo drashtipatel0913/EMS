@@ -197,55 +197,93 @@ class EmployeeUpdate extends Component {
     const errorlist = this.state.errors.map((error, index) => <p key={index} className="error-txt">{error}</p>)
 
     return <React.Fragment>
-      <form onSubmit={this.updateForm} className="text-center form">
+      <form onSubmit={this.updateForm} className="text-center form py-3">
         <h1>Update Employee</h1>
-        <Link to="/">All Employees</Link>
+        <Link to="/" className='btn btn-outline-primary my-5 w-25'>All Employees</Link>
         {errorlist}
         <h3 className="success-txt">{this.state.msg}</h3>
-        <div>
-          <label>First Name:</label>
-          <input type="text" name="firstName" defaultValue={this.state.firstName} readOnly />
+        <div className='py-3'>
+          <table className='container w-25 table-borderless table' cellPadding={10}>
+            <tbody>
+              <tr>
+                <th>
+                  <label>First Name:</label>
+                </th>
+                <td>
+                  <input type="text" className='form-control' name="firstName" defaultValue={this.state.firstName} readOnly />
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  <label>Last Name:</label>
+                </th>
+                <td>
+                  <input type="text" className='form-control' name="lastName" defaultValue={this.state.lastName} readOnly />
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  <label>Age:</label>
+                </th>
+                <td>
+                  <input type="number" id="age" name="age" className='form-control' defaultValue={this.state.age} readOnly />
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  <label>Date of joining:</label>
+                </th>
+                <td>
+                  <input type="date" name="dateOfJoining" className='form-control' />
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  <label>Title:</label>
+                </th>
+                <td>
+                  <select name="title" className="form-select" value={this.state.title} onChange={this.onChange}>
+                    <option value="Director">Director</option>
+                    <option value="Employee">Employee</option>
+                    <option value="VP">VP</option>
+                    <option value="Manager">Manager</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  <label>Department:</label>
+                </th>
+                <td>
+                  <select name="department" className="form-select" value={this.state.department} onChange={this.onChange}>
+                    <option value="Engineering">Engineering</option>
+                    <option value="HR">HR</option>
+                    <option value="IT">IT</option>
+                    <option value="Marketing">Marketing</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  <label>Employee of Type:</label>
+                </th>
+                <td>
+                  <select name="employeeType" className="form-select" value={this.state.employeeType} disabled>
+                    <option value="FullTime">FullTime</option>
+                    <option value="PartTime">PartTime</option>
+                    <option value="Contract">Contract</option>
+                    <option value="Seasonal">Seasonal</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td colSpan="2">
+                  <button className='btn my-5 w-100 btn-outline-dark' type="submit">Update Employee</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div>
-          <label>Last Name:</label>
-          <input type="text" name="lastName" defaultValue={this.state.lastName} readOnly />
-        </div>
-        <div>
-          <label>Age:</label>
-          <input type="number" id="age" name="age" defaultValue={this.state.age} readOnly />
-        </div>
-        {/* <div>
-          <label>Date of joining:</label>
-          <input type="date" name="dateOfJoining" />
-        </div> */}
-        <div>
-          <label>Title:</label>
-          <select name="title" value={this.state.title} onChange={this.onChange}>
-            <option value="Director">Director</option>
-            <option value="Employee">Employee</option>
-            <option value="VP">VP</option>
-            <option value="Manager">Manager</option>
-          </select>
-        </div>
-        <div>
-          <label>Department:</label>
-          <select name="department" value={this.state.department} onChange={this.onChange}>
-            <option value="Engineering">Engineering</option>
-            <option value="HR">HR</option>
-            <option value="IT">IT</option>
-            <option value="Marketing">Marketing</option>
-          </select>
-        </div>
-        <div>
-          <label>Employee of Type:</label>
-          <select name="employeeType" value={this.state.employeeType} disabled>
-            <option value="FullTime">FullTime</option>
-            <option value="PartTime">PartTime</option>
-            <option value="Contract">Contract</option>
-            <option value="Seasonal">Seasonal</option>
-          </select>
-        </div>
-        <button className='btn btn-secondary' type="submit">Update Employee</button>
       </form>
     </React.Fragment>
   }
