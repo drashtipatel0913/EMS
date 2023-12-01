@@ -19,25 +19,26 @@ export default class EmployeeDirectory extends Component {
          method: "POST",
          headers: { "Content-Type": "application/json" },
          body: JSON.stringify({
-            query: `query employeeRecords {
-                    employeeRecords {
-                      id
-                      firstName
-                      lastName
-                      age
-                      dateOfJoining
-                      title
-                      department
-                      employeeType
-                      currentStatus
-                    }
-                  }            
-                `
+            query: `
+               query GetEmployees {
+                  getEmployees {
+                     id
+                     firstName
+                     lastName
+                     age
+                     dateOfJoining
+                     title
+                     department
+                     employeeType
+                     currentStatus
+                  }
+               }
+           `
          })
       })
          .then(res => res.json())
          .then(data => {
-            this.setState({ employees: data.data.employeeRecords });
+            this.setState({ employees: data.data.getEmployees });
          })
          .catch(error => {
             console.error('GraphQL error:', error);
@@ -58,7 +59,7 @@ export default class EmployeeDirectory extends Component {
                     mutation CreateEmployee(
                     $firstName: String!,
                     $lastName: String!,
-                    $age: Int!,
+                    $age: Int!,  
                     $title: Title,
                     $department: Department,
                     $dateOfJoining: String!,

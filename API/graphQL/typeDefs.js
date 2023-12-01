@@ -26,6 +26,7 @@ enum EmployeeType{
 }
 
 type Employee{
+   id: ID!
    firstName: String
    lastName: String
    age: Int

@@ -39,6 +39,7 @@ export default class EmployeeTable extends Component {
 
    render() {
 
+      console.log(this.props.employees)
       const rows = this.props.employees.map((row) => (
          <tr key={row.id}>
             <td>{row.firstName}</td>

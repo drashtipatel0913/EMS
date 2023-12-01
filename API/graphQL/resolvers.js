@@ -37,13 +37,14 @@ module.exports = {
             firstName: firstName,
             lastName: lastName,
             age: age,
-            dateOfJoining: new Date().toISOString(),
+            dateOfJoining: new Date(dateOfJoining).toISOString(),
             title: title,
             department: department,
             employeeType: employeeType,
             currentStatus: 1
          })
 
+         console.log(createEmployee)
          const res = await createEmployee.save(); // MongoDB Saving Happens
          console.log(res._doc)
          return {

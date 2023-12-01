@@ -85,12 +85,13 @@ export default class EmployeeCreate extends Component {
          formData.target.age.value = '';
 
          this.props.createEmployee(data);
+         
          this.setState({ msg: 'Employee added to our system successfully' })
 
       }
    }
-   render() {
 
+   render() {
       const { errorlist } = this.state;
 
       const renderErrors = () => {
