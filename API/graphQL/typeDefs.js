@@ -2,6 +2,8 @@ const { gql } = require('apollo-server')
 
 module.exports = gql`
 
+scalar DateTime
+
 enum Title{
    Employee
    Manager
@@ -24,44 +26,34 @@ enum EmployeeType{
 }
 
 type Employee{
-   id:ID!
    firstName: String
    lastName: String
    age: Int
-   dateOfJoining: String
-   title: Title   
+   dateOfJoining: DateTime
+   title: Title
    department: Department
    employeeType: EmployeeType
    currentStatus: Boolean
 }
-   
-type Query {
-    employeeRecords : [Employee]!,
-    employeeData(Id : String!) : Employee!,
-    employeeTypeList(type : String!) : [Employee],
+
+input employeeInput{
+   firstName: String
+   lastName: String
+   age: Int
+   dateOfJoining: DateTime
+   title: Title
+   department: Department
+   employeeType: EmployeeType
+}
+
+type Query{
+   employee(ID: ID!): Employee!
+   getEmployees(amount: Int): [Employee]
 }
 
 type Mutation{
-   createEmployee(
-      firstName: String
-      lastName: String
-      age: Int
-      dateOfJoining: String
-      title: Title   
-      department: Department
-      employeeType: EmployeeType
-      currentStatus: Boolean
-    ) : Employee 
-
-
-    updateEmployee (
-      id:ID!
-      title: Title
-      department: Department
-      currentStatus: Boolean
-    ) : Employee! 
-  
-    deleteEmployee (Id : ID!) 
-    : Employee! 
+   createEmployee(employeeInput: employeeInput): Employee!
+   deleteEmployee(ID: ID!):Boolean
+   updateEmployee(ID: ID!, employeeInput: employeeInput): Boolean
 }
 `
