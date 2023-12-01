@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default class EmployeeTable extends Component {
 
@@ -15,48 +15,47 @@ export default class EmployeeTable extends Component {
          headers: { "Content-Type": "application/json" },
          body: JSON.stringify({
             query: `
-                mutation deleteEmployee($id: ID!) {
-                    deleteEmployee(Id: $id) {
-                      id
-                      firstName
-                      lastName
-                      age
-                      dateOfJoining
-                      title
-                      department
-                      employeeType
-                      currentStatus
-                    }
-                  }
+               mutation DeleteEmployee($id: ID!) {
+                  deleteEmployee(ID: $id)
+               }
                 `, variables: variables
          })
       }).then(res => res.json()).then(function (res) {
          console.log(res)
       })
-      alert('employee data Deleted!');
+      alert('Employee Data Deleted Successfully!');
       this.props.getemployees();
    }
 
    render() {
-
-      console.log(this.props.employees)
-      const rows = this.props.employees.map((row) => (
-         <tr key={row.id}>
-            <td>{row.firstName}</td>
-            <td>{row.lastName}</td>
-            <td>{new Date(parseInt(row.dateOfJoining)).toDateString()}</td>
-            <td>{row.age}</td>
-            <td>{row.title}</td>
-            <td>{row.employeeType}</td>
-            <td>{row.department}</td>
-            <td>{row.currentStatus ? 'Working' : 'Retired'}</td>
-            <td>
+      const rows = this.props.employees.map((row) => {
+         const dateOfJoining = new Date(row.dateOfJoining);
+         return (
+            <tr key={row.id}>
+               <td>{row.firstName}</td>
+               <td>{row.lastName}</td>
+               <td>
+               {
+                  dateOfJoining.toLocaleDateString('en-GB', {
+                     year: 'numeric',
+                     month: 'long',
+                     day: '2-digit',
+                     timeZone: 'UTC'  // Specify the UTC time zone
+                  })
+               }
+               </td>
+               <td>{row.age}</td>
+               <td>{row.title}</td>
+               <td>{row.employeeType}</td>
+               <td>{row.department}</td>
+               <td>{row.currentStatus ? 'Working' : 'Retired'}</td>
+               <td>
                <Link className='btn btn-primary me-3' to={"/Update/" + row.id}>Update</Link>
-               {/* <button className='btn btn-primary me-3'>Edit</button> */}
                <button className='btn btn-danger' onClick={() => this.doDelete(row.id)}>Delete</button>
-            </td>
-         </tr>
-      ));
+               </td>
+            </tr>
+         );
+      });
 
       return (
       <div className='py-5'>

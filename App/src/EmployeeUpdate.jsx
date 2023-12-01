@@ -24,7 +24,8 @@ class EmployeeUpdate extends Component {
       department: '',
       currentStatus: ''
     },
-      this.updateForm = this.updateForm.bind(this)
+
+    this.updateForm = this.updateForm.bind(this)
     this.onChange = this.onChange.bind(this)
     this.updateEmployee = this.updateEmployee.bind(this)
   }
@@ -33,32 +34,29 @@ class EmployeeUpdate extends Component {
     console.log('componentDidCatch');
   }
 
-
-
-
   componentDidMount() {
     fetch('http://localhost:3000/graphql', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         query: `
-      query employeeData($id: String!) {
-        employeeData(Id: $id) {
-          id
-          firstName
-          lastName
-          age
-          dateOfJoining
-          title
-          department
-          employeeType
-          currentStatus
-        }
-      }            
-    `,
-        variables: { id: this.props.params.id }
+            query Employee($id: ID!) {
+              employee(ID: $id) {
+                id
+                firstName
+                lastName
+                age
+                dateOfJoining
+                title
+                department
+                employeeType
+                currentStatus
+              }
+            }            
+          `,
+          variables: { id: this.props.params.id }
+        })
       })
-    })
       .then(response => {
         if (!response.ok) {
           throw new Error(`GraphQL request failed with status ${response.status}`);
@@ -72,12 +70,25 @@ class EmployeeUpdate extends Component {
         }
 
         // Extract data from the result
-        const data = result.data.employeeData;
-        console.log(data); this.setState({
+        const data = result.data.employee;
+
+        // Manually extract date components
+        const dateComponents = data.dateOfJoining.split(/[-T:.Z]/);
+        const year = parseInt(dateComponents[0]);
+        const month = parseInt(dateComponents[1]) - 1; // Months are zero-based
+        const day = parseInt(dateComponents[2]);
+
+        // Create a new Date object
+        const databaseDate = new Date(year, month, day);
+
+        // Format the date for the input element (assuming it's in ISO format)
+        const formattedDate = databaseDate.toISOString().split('T')[0];
+
+        this.setState({
           firstName: data.firstName,
           lastName: data.lastName,
           age: data.age,
-          dateOfJoining: data.dateOfJoining,
+          dateOfJoining: formattedDate,
           title: data.title,
           department: data.department,
           employeeType: data.employeeType,
@@ -88,8 +99,6 @@ class EmployeeUpdate extends Component {
       .catch(error => {
         console.error('Error fetching employee data:', error);
       });
-
-
   }
 
   updateForm(event) {
@@ -121,13 +130,15 @@ class EmployeeUpdate extends Component {
     if (!event.target.currentStatus.value) {
       errors.push('Current Status is required !')
     }
+
     this.setState({ errors: errors })
+    
     if (errors.length == 0) {
-      let age = parseInt(event.target.age.value)
+      let ageNum = parseInt(event.target.age.value)
       const data = {
         firstName: event.target.firstName.value,
         lastName: event.target.lastName.value,
-        age: event.target.age.value,
+        age: ageNum,
         title: event.target.title.value,
         department: event.target.department.value,
         employeeType: event.target.employeeType.value,
@@ -154,44 +165,29 @@ class EmployeeUpdate extends Component {
   }
 
   updateEmployee(inputData) {
-    inputData.id = this.state.id
-    inputData.currentStatus = this.state.currentStatus == '1' ? true : false
+    inputData.currentStatus = this.state.currentStatus == '1' ? true : false;
     fetch("http://localhost:3000/graphql", {
-      method: 'POST',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        query: `
-                    mutation updateEmployee(
-                    id:ID!,
-                    $title: Title,
-                    $department: Department,
-                    $currentStatus: Boolean!
-                    ) {
-                        updateEmployee(
-                        id:ID!,
-                        title: $title,
-                        department: $department,
-                        currentStatus: $currentStatus
-                        ) {
-                           id
-                           firstName
-                           lastName
-                           age
-                           dateOfJoining
-                           title
-                           department
-                           employeeType
-                           currentStatus
-                        }
-                    }
-                `, variables: inputdata
-      })
-        .then(res => res.json())
-        .then(function (res) {
-          console.log(res)
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            query: `
+                mutation UpdateEmployee($id: ID!, $employeeInput: employeeInput) 
+                {
+                    updateEmployee(ID: $id, employeeInput: $employeeInput)
+                }`,
+            variables: { id: this.state.id, employeeInput: inputData }
         })
     })
-  }
+    .then(res => res.json())
+    .then(data => {
+        // Handle the response data here
+        console.log(data);
+    })
+    .catch(error => {
+        // Handle any errors that occurred during the fetch.
+        console.error('Error:', error);
+    });
+}
 
   render() {
     const errorlist = this.state.errors.map((error, index) => <p key={index} className="error-txt">{error}</p>)
@@ -210,7 +206,7 @@ class EmployeeUpdate extends Component {
                   <label>First Name:</label>
                 </th>
                 <td>
-                  <input type="text" className='form-control' name="firstName" defaultValue={this.state.firstName} readOnly />
+                  <input type="text" className='form-control' name="firstName" defaultValue={this.state.firstName} disabled />
                 </td>
               </tr>
               <tr>
@@ -218,7 +214,7 @@ class EmployeeUpdate extends Component {
                   <label>Last Name:</label>
                 </th>
                 <td>
-                  <input type="text" className='form-control' name="lastName" defaultValue={this.state.lastName} readOnly />
+                  <input type="text" className='form-control' name="lastName" defaultValue={this.state.lastName} disabled />
                 </td>
               </tr>
               <tr>
@@ -226,7 +222,7 @@ class EmployeeUpdate extends Component {
                   <label>Age:</label>
                 </th>
                 <td>
-                  <input type="number" id="age" name="age" className='form-control' defaultValue={this.state.age} readOnly />
+                  <input type="number" id="age" name="age" className='form-control' defaultValue={this.state.age} disabled />
                 </td>
               </tr>
               <tr>
@@ -234,7 +230,7 @@ class EmployeeUpdate extends Component {
                   <label>Date of joining:</label>
                 </th>
                 <td>
-                  <input type="date" name="dateOfJoining" className='form-control' />
+                  <input type="date" name="dateOfJoining" className='form-control' defaultValue={this.state.dateOfJoining} disabled/>
                 </td>
               </tr>
               <tr>
@@ -273,6 +269,17 @@ class EmployeeUpdate extends Component {
                     <option value="PartTime">PartTime</option>
                     <option value="Contract">Contract</option>
                     <option value="Seasonal">Seasonal</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  <label>Current Status:</label>
+                </th>
+                <td>
+                  <select name="currentStatus" className="form-select" value={this.state.currentStatus} onChange={this.onChange}>
+                    <option value="1">Working</option>
+                    <option value="0">Retired</option>
                   </select>
                 </td>
               </tr>

@@ -45,6 +45,7 @@ input employeeInput{
    title: Title
    department: Department
    employeeType: EmployeeType
+   currentStatus: Boolean
 }
 
 type Query{
