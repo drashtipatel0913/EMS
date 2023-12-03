@@ -2,7 +2,7 @@
 Employee Management System with GraphQL API, Apollo Server and React
 
 -------------
-Technology used :
+## Technology used :
 
  ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
  ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
