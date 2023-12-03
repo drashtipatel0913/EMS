@@ -51,6 +51,10 @@ input employeeInput{
 type Query{
    employee(ID: ID!): Employee!
    getEmployees(amount: Int): [Employee]
+   getEmployeesByTitle(title: Title!): [Employee]
+   getEmployeesByDepartment(department: Department!): [Employee]
+   getEmployeesByEmployeeType(employeeType: EmployeeType!): [Employee]
+   getEmployeesByCurrentStatus(currentStatus: Boolean!): [Employee]
 }
 
 type Mutation{

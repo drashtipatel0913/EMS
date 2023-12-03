@@ -29,6 +29,18 @@ module.exports = {
       },
       async getEmployees(_, { amount }) {
          return await Employee.find().limit(amount)
+      },
+      async getEmployeesByTitle(_, { title }) {
+         return await Employee.find({ title: title })
+      },
+      async getEmployeesByDepartment(_, { department }) {
+         return await Employee.find({ department: department })
+      },
+      async getEmployeesByEmployeeType(_, { employeeType }) {
+         return await Employee.find({ employeeType: employeeType })
+      },
+      async getEmployeesByCurrentStatus(_, { currentStatus }) {
+         return await Employee.find({ currentStatus: currentStatus })
       }
    },
    Mutation: {

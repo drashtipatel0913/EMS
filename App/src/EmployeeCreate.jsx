@@ -110,10 +110,10 @@ export default class EmployeeCreate extends Component {
                <tbody>
                   <tr>
                      <th>
-                        <label>First Name:</label>
+                        <label htmlFor='firstname'>First Name:</label>
                      </th>
                      <td>
-                        <input type="text" className='form-control' name="firstName" />
+                        <input type="text" id='firstname' className='form-control' name="firstName" />
                      </td>
                      <td rowSpan={8}>
                         {renderErrors()}
@@ -121,15 +121,15 @@ export default class EmployeeCreate extends Component {
                   </tr>
                   <tr>
                      <th>
-                        <label>Last Name:</label>
+                        <label htmlFor='lastName'>Last Name:</label>
                      </th>
                      <td>
-                        <input type="text" className='form-control' name="lastName" />
+                        <input type="text" className='form-control' name="lastName" id="lastName" />
                      </td>
                   </tr>
                   <tr>
                      <th>
-                        <label>Age:</label>
+                        <label htmlFor='age'>Age:</label>
                      </th>
                      <td>
                         <input type="number" id="age" name="age" className='form-control' />
@@ -138,18 +138,18 @@ export default class EmployeeCreate extends Component {
                   </tr>
                   <tr>
                      <th>
-                        <label>Date of joining:</label>
+                        <label htmlFor='dateOfJoining'>Date of joining:</label>
                      </th>
                      <td>
-                        <input type="date" name="dateOfJoining" className='form-control' />
+                        <input type="date" name="dateOfJoining" id="dateOfJoining" className='form-control' />
                      </td>
                   </tr>
                   <tr>
                      <th>
-                        <label>Title:</label>
+                        <label htmlFor='title'>Title:</label>
                      </th>
                      <td>
-                        <select name="title" className="form-select">
+                        <select name="title" className="form-select" id='title'>
                            <option value="Director">Director</option>
                            <option value="Employee">Employee</option>
                            <option value="VP">VP</option>
@@ -159,10 +159,10 @@ export default class EmployeeCreate extends Component {
                   </tr>
                   <tr>
                      <th>
-                        <label>Department:</label>
+                        <label htmlFor='department'>Department:</label>
                      </th>
                      <td>
-                        <select name="department" className="form-select">
+                        <select name="department" className="form-select" id='department'>
                            <option value="Engineering">Engineering</option>
                            <option value="HR">HR</option>
                            <option value="IT">IT</option>
@@ -172,10 +172,10 @@ export default class EmployeeCreate extends Component {
                   </tr>
                   <tr>
                      <th>
-                        <label>Employee of Type:</label>
+                        <label htmlFor='employeeType'>Employee of Type:</label>
                      </th>
                      <td>
-                        <select name="employeeType" className="form-select">
+                        <select name="employeeType" className="form-select" id='employeeType'>
                            <option value="FullTime">FullTime</option>
                            <option value="PartTime">PartTime</option>
                            <option value="Contract">Contract</option>
