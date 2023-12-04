@@ -3,16 +3,34 @@ import React, { Component } from "react";
 export default class EmployeeFilter extends Component {
   constructor(props) {
     super(props);
-    this.onChange = this.onChange.bind(this);
+    this.onTitleChange = this.onTitleChange.bind(this);
+    this.onDepartmentChange = this.onDepartmentChange.bind(this);
+    this.onEmployeeTypeChange = this.onEmployeeTypeChange.bind(this);
+    this.onStatusChange = this.onStatusChange.bind(this);
   }
 
   componentDidCatch(error, errorInfo) {
     console.log(error, errorInfo);
   }
 
-  onChange(e) {
-    const { name, value } = e.target;
-    this.props.filter(name, value);
+  onTitleChange(e) {
+    const { value } = e.target;
+    this.props.filterByTitle(value);
+  }
+
+  onDepartmentChange(e) {
+    const { value } = e.target;
+    this.props.filterByDepartment(value);
+  }
+
+  onEmployeeTypeChange(e) {
+    const { value } = e.target;
+    this.props.filterByEmployeeType(value);
+  }
+
+  onStatusChange(e) {
+    const { value } = e.target;
+    this.props.filterByStatus(value);
   }
 
   render() {
@@ -35,11 +53,10 @@ export default class EmployeeFilter extends Component {
         <div className="collapse container" id="collapseExample">
           <div className="card card-body d-flex flex-row gap-5">
             <select
-              name="Title"
               value="Select Title"
               className="form-select"
               aria-label="Default select example"
-              onChange={this.onChange}
+              onChange={this.onTitleChange}
             >
               <option value="Select Title">Select Title</option>
               {titles.map((title) => (
@@ -49,11 +66,10 @@ export default class EmployeeFilter extends Component {
               ))}
             </select>
             <select
-            name="EmployeeType"
               value="Select Employee Type"
               className="form-select"
               aria-label="Default select example"
-              onChange={this.onChange}
+              onChange={this.onEmployeeTypeChange}
             >
               <option value="Select Employee Type">Select Employee Type</option>
               {employeeTypes.map((employeeType) => (
@@ -63,11 +79,10 @@ export default class EmployeeFilter extends Component {
               ))}
             </select>
             <select
-            name="Department"
               value="Select Department"
               className="form-select"
               aria-label="Default select example"
-              onChange={this.onChange}
+              onChange={this.onDepartmentChange}
             >
               <option value="Select Department">Select Department</option>
               {departments.map((department) => (
@@ -77,15 +92,14 @@ export default class EmployeeFilter extends Component {
               ))}
             </select>
             <select
-            name="CurrentStatus"
               value="Select Status"
               className="form-select"
               aria-label="Default select example"
-              onChange={this.onChange}
+              onChange={this.onStatusChange}
             >
               <option value="Select Status">Select Status</option>
-              <option value="true">Working</option>
-              <option value="false">Retired</option>
+              <option value="Working">Working</option>
+              <option value="Retired">Retired</option>
             </select>
           </div>
         </div>

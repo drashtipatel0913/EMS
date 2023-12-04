@@ -3,6 +3,14 @@ import EmployeeSearch from "./EmployeeSearch.jsx";
 import EmployeeTable from "./EmployeeTable.jsx";
 import EmployeeCreate from "./EmployeeCreate.jsx";
 import EmployeeFilter from "./EmployeeFilter.jsx";
+import {
+  filterByTitle,
+  filterByDepartment,
+  filterByEmployeeType,
+  filterByCurrentStatus,
+} from "../Services/FilterService.js";
+
+const UI_API_ENDPOINT = process.env.UI_API_ENDPOINT;
 
 export default class EmployeeDirectory extends Component {
   constructor(props) {
@@ -15,7 +23,7 @@ export default class EmployeeDirectory extends Component {
   }
 
   getemployees() {
-    fetch("http://localhost:3000/graphql", {
+    fetch(UI_API_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -50,7 +58,7 @@ export default class EmployeeDirectory extends Component {
   }
 
   createEmployee(inputdata) {
-    fetch("http://localhost:3000/graphql", {
+    fetch(UI_API_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -92,48 +100,27 @@ export default class EmployeeDirectory extends Component {
       .then((res) => res.json())
       .then(function (res) {
         console.log(res);
-      });
-    this.getemployees();
-  }
-
-  filter = (filterType, filterValue) => {
-    console.log("Filter Type:", filterType);
-    console.log("Filter Value:", filterValue);
-
-    const lowerCaseFilterType = filterType.toLowerCase();
-    console.log("Filter Type lower:", lowerCaseFilterType);
-
-    fetch("http://localhost:3000/graphql", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        query: `
-               query Query($${lowerCaseFilterType}: ${filterType}!) {
-                  getEmployeesByTitle(${lowerCaseFilterType}: $${filterType}) {
-                     id
-                     firstName
-                     lastName
-                     age
-                     dateOfJoining
-                     title
-                     department
-                     employeeType
-                     currentStatus
-                  }
-               }
-            `,
-        variables: { [filterType]: filterValue },
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        this.setState({
-          employees: data.data[`getEmployeesBy${filterType}`],
-        });
       })
       .catch((error) => {
         console.error("GraphQL error:", error);
       });
+    this.getemployees();
+  }
+
+  handleFilterByTitle = (title) => {
+    filterByTitle(title, this.getemployees, this.setState.bind(this));
+  };
+
+  handleFilterByDepartment = (department) => {
+    filterByDepartment(department, this.getemployees, this.setState.bind(this));
+  };
+  
+  handleFilterByEmployeeType = (employeeType) => {
+    filterByEmployeeType(employeeType, this.getemployees, this.setState.bind(this));
+  };
+  
+  handleFilterByStatus = (status) => {
+    filterByCurrentStatus(status, this.getemployees, this.setState.bind(this));
   };
 
   render() {
@@ -149,7 +136,11 @@ export default class EmployeeDirectory extends Component {
           departments={departments}
           titles={titles}
           employeeTypes={employeeTypes}
-          filter={this.filter}
+          filterByTitle={this.handleFilterByTitle}
+          filterByDepartment={this.handleFilterByDepartment}
+          filterByEmployeeType={this.handleFilterByEmployeeType}
+          filterByStatus={this.handleFilterByStatus}
+
         />
         <EmployeeTable
           employees={this.state.employees}
