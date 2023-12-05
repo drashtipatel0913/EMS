@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
+const UI_API_ENDPOINT = process.env.UI_API_ENDPOINT;
+
 export default class EmployeeTable extends Component {
 
    constructor(props) {
@@ -10,7 +12,7 @@ export default class EmployeeTable extends Component {
 
    doDelete(employeeId) {
       const variables = { id: employeeId }
-      fetch("http://localhost:3000/graphql", {
+      fetch(UI_API_ENDPOINT, {
          method: 'POST',
          headers: { "Content-Type": "application/json" },
          body: JSON.stringify({

@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Route, Routes, HashRouter } from "react-router-dom";
 
-import EmployeeDirectory from "./EmployeeDirectory.jsx";
-import EmployeeUpdate from "./EmployeeUpdate.jsx";
+import EmployeeDirectory from "./Components/EmployeeDirectory.jsx";
+import EmployeeUpdate from "./Components/EmployeeUpdate.jsx";
 
 class App extends React.Component {
   render() {

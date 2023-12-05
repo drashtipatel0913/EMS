@@ -1,10 +1,12 @@
-const path = require('path');
+const { resolve } = require('path');
+const DotenvWebpackPlugin = require('dotenv-webpack');
+
 module.exports = {
    mode: 'development',
    entry: { app: './src/App.jsx' },
    output: {
       filename: '[name].bundle.js/main.js',
-      path: path.resolve(__dirname, 'public'),
+      path: resolve(__dirname, 'public'),
    },
    module: {
       rules: [
@@ -21,4 +23,15 @@ module.exports = {
          chunks: 'all',
       },
    },
+   resolve: {
+      fallback: {
+         "path": false,
+         "fs": false,
+         "os": false,
+         "crypto": false,
+      },
+   },
+   plugins: [
+      new DotenvWebpackPlugin(),
+   ],
 };
