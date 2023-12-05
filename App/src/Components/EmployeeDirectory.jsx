@@ -62,39 +62,20 @@ export default class EmployeeDirectory extends Component {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        query: `
-                    mutation CreateEmployee(
-                    $firstName: String!,
-                    $lastName: String!,
-                    $age: Int!,  
-                    $title: Title,
-                    $department: Department,
-                    $dateOfJoining: String!,
-                    $employeeType: EmployeeType,
-                    $currentStatus: Boolean!
-                    ) {
-                        createEmployee(
-                        firstName: $firstName,
-                        lastName: $lastName,
-                        age: $age,
-                        title: $title,
-                        department: $department,
-                        dateOfJoining: $dateOfJoining,
-                        employeeType: $employeeType,
-                        currentStatus: $currentStatus
-                        ) {
-                           firstName
-                           lastName
-                           age
-                           dateOfJoining
-                           title
-                           department
-                           employeeType
-                           currentStatus
-                        }
-                    }
-                `,
-        variables: inputdata,
+        query: `mutation CreateEmployee($employeeInput: employeeInput) {
+                  createEmployee(employeeInput: $employeeInput) {
+                    id
+                    firstName
+                    lastName
+                    age
+                    dateOfJoining
+                    title
+                    department
+                    employeeType
+                    currentStatus
+                  }
+                }`,
+        variables: { employeeInput: inputdata },
       }),
     })
       .then((res) => res.json())
@@ -114,11 +95,15 @@ export default class EmployeeDirectory extends Component {
   handleFilterByDepartment = (department) => {
     filterByDepartment(department, this.getemployees, this.setState.bind(this));
   };
-  
+
   handleFilterByEmployeeType = (employeeType) => {
-    filterByEmployeeType(employeeType, this.getemployees, this.setState.bind(this));
+    filterByEmployeeType(
+      employeeType,
+      this.getemployees,
+      this.setState.bind(this)
+    );
   };
-  
+
   handleFilterByStatus = (status) => {
     filterByCurrentStatus(status, this.getemployees, this.setState.bind(this));
   };
@@ -140,7 +125,6 @@ export default class EmployeeDirectory extends Component {
           filterByDepartment={this.handleFilterByDepartment}
           filterByEmployeeType={this.handleFilterByEmployeeType}
           filterByStatus={this.handleFilterByStatus}
-
         />
         <EmployeeTable
           employees={this.state.employees}
