@@ -3,6 +3,8 @@ import EmployeeSearch from "./EmployeeSearch.jsx";
 import EmployeeTable from "./EmployeeTable.jsx";
 import EmployeeCreate from "./EmployeeCreate.jsx";
 import EmployeeFilter from "./EmployeeFilter.jsx";
+import Navbar from "./react-bootstrap/Navbar.jsx";
+
 import {
   filterByTitle,
   filterByDepartment,
@@ -115,6 +117,7 @@ export default class EmployeeDirectory extends Component {
 
     return (
       <React.Fragment>
+        <Navbar />
         <h1 className="text-center m-3">Employee Management System</h1>
         <EmployeeSearch />
         <EmployeeFilter
