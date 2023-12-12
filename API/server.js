@@ -1,11 +1,13 @@
 require('dotenv').config()
 
+const cors = require('cors');
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express')
 
 const { ConnectToDB } = require('./db')
 
 const app = express();
+app.use(cors());
 app.use(express.static('public'));
 
 const port = process.env.API_SERVER_PORT || 3000
