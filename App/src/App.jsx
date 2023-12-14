@@ -7,6 +7,7 @@ import EmployeeDetails from "./Components/EmployeeDetails.jsx";
 import EmployeeCreate from "./Components/EmployeeCreate.jsx";
 import EmployeeUpdate from "./Components/EmployeeUpdate.jsx";
 import EmployeeTable from "./Components/EmployeeTable.jsx";
+import EmployeeRetirement from "./Components/EmployeeRetirement.jsx";
 
 class App extends React.Component {
   render() {
@@ -17,6 +18,7 @@ class App extends React.Component {
         <Route path="/view-employee" element={<EmployeeTable />} />
         <Route path="/Update/:id" element={ <EmployeeUpdate /> }  />
         <Route path="/Details/:id" element={<EmployeeDetails/>}/>
+        <Route path="/retirements" element={<EmployeeRetirement/>}/>
       </Routes>
     );
   }
