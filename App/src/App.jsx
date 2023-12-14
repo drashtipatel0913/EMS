@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { Route, Routes, HashRouter } from "react-router-dom";
 
 import EmployeeDirectory from "./Components/EmployeeDirectory.jsx";
+import EmployeeDetails from "./Components/EmployeeDetails.jsx";
 import EmployeeCreate from "./Components/EmployeeCreate.jsx";
 import EmployeeUpdate from "./Components/EmployeeUpdate.jsx";
 import EmployeeTable from "./Components/EmployeeTable.jsx";
@@ -15,6 +16,7 @@ class App extends React.Component {
         <Route path="/create-employee" element={<EmployeeCreate />} />
         <Route path="/view-employee" element={<EmployeeTable />} />
         <Route path="/Update/:id" element={ <EmployeeUpdate /> }  />
+        <Route path="/Details/:id" element={<EmployeeDetails/>}/>
       </Routes>
     );
   }

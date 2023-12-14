@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { getEmployees } from "../Services/employeeService";
+import { Container, Button, Table, Alert } from "react-bootstrap";
 import EmployeeFilter from "./EmployeeFilter.jsx";
 import Navbar from "./react-bootstrap/Navbar.jsx";
+import {
+  getEmployees,
+  deleteEmployee,
+  isEmployeeActive,
+} from "../Services/employeeService";
 import {
   filterByTitle,
   filterByDepartment,
   filterByEmployeeType,
   filterByCurrentStatus,
 } from "../Services/FilterService.js";
-import { Container, Button, Table } from "react-bootstrap";
 
 const UI_API_ENDPOINT = process.env.UI_API_ENDPOINT;
 
@@ -57,7 +61,6 @@ export default class EmployeeTable extends Component {
   async fetchEmployees() {
     try {
       const employees = await getEmployees();
-      console.log(employees);
       this.setState({ employees });
     } catch (error) {
       console.error("Error fetching employees:", error);
@@ -65,26 +68,29 @@ export default class EmployeeTable extends Component {
   }
 
   async doDelete(employeeId) {
-    const variables = { id: employeeId };
     try {
-      fetch(UI_API_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          query: `
-               mutation DeleteEmployee($id: ID!) {
-                  deleteEmployee(ID: $id)
-               }
-                `,
-          variables: variables,
-        }),
-      })
-        .then((res) => res.json())
-        .then(function (res) {
-          console.log(res);
+      const employee = this.state.employees.find(
+        (emp) => emp.id === employeeId
+      );
+
+      if (isEmployeeActive(employee)) {
+        // If the employee is active, display an error message
+        this.setState({
+          message: "CAN'T DELETE EMPLOYEE - STATUS ACTIVE",
         });
-      alert("Employee Data Deleted Successfully!");
-      this.fetchEmployees();
+      } else {
+        // Display a confirmation dialog
+        const confirmDelete = window.confirm(
+          `Are you sure you want to delete ${employee.firstName} ${employee.lastName}?`
+        );
+        if (confirmDelete) {
+          await deleteEmployee(employeeId);
+          this.setState({
+            message: "Employee Data Deleted Successfully!",
+          });
+          this.fetchEmployees();
+        }
+      }
     } catch (error) {
       console.error("Error deleting employee:", error);
     }
@@ -94,6 +100,7 @@ export default class EmployeeTable extends Component {
     const departments = ["IT", "Marketing", "HR", "Engineering"];
     const titles = ["Director", "Employee", "VP", "Manager"];
     const employeeTypes = ["FullTime", "PartTime", "Contract", "Seasonal"];
+
     const rows = this.state.employees.map((row) => {
       const dateOfJoining = new Date(row.dateOfJoining);
       return (
@@ -114,7 +121,10 @@ export default class EmployeeTable extends Component {
           <td>{row.department}</td>
           <td>{row.currentStatus ? "Working" : "Retired"}</td>
           <td>
-            <Link className="btn btn-outline-info me-3" to={"/View/" + row.id}>
+            <Link
+              className="btn btn-outline-info text-dark me-3"
+              to={"/Details/" + row.id}
+            >
               Details
             </Link>
             <Link className="btn btn-primary me-3" to={"/Update/" + row.id}>
@@ -141,6 +151,11 @@ export default class EmployeeTable extends Component {
             filterByEmployeeType={this.handleFilterByEmployeeType}
             filterByStatus={this.handleFilterByStatus}
           />
+          {this.state.message && (
+            <Alert variant="danger" className="mt-3">
+              {this.state.message}
+            </Alert>
+          )}
           <Table striped bordered hover responsive>
             <thead>
               <tr>

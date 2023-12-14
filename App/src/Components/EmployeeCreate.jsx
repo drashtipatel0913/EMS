@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { createEmployee } from "../Services/employeeService.js";
 import Navbar from "./react-bootstrap/Navbar.jsx";
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
-import { Button, Col, Row, Alert } from "react-bootstrap";
+import Form from 'react-bootstrap/Form';
+import Container from 'react-bootstrap/Container';
+import { Button, Col, Row, Alert } from 'react-bootstrap';
 
 export default class EmployeeCreate extends Component {
   constructor(props) {
@@ -18,25 +18,9 @@ export default class EmployeeCreate extends Component {
     formData.preventDefault();
     this.setState({ message: "", errorlist: [] });
 
-    const {
-      firstName,
-      lastName,
-      dateOfJoining,
-      department,
-      title,
-      employeeType,
-      age,
-    } = formData.target;
+    const { firstName, lastName, dateOfJoining, department, title, employeeType, age } = formData.target;
 
-    if (
-      !firstName.value ||
-      !lastName.value ||
-      !dateOfJoining.value ||
-      !department.value ||
-      !title.value ||
-      !employeeType.value ||
-      !age.value
-    ) {
+    if (!firstName.value || !lastName.value || !dateOfJoining.value || !department.value || !title.value || !employeeType.value || !age.value) {
       this.setState({ errorlist: ["Please fill all the fields"] });
       return;
     }
@@ -59,7 +43,7 @@ export default class EmployeeCreate extends Component {
       currentStatus: true,
     };
 
-    try { 
+    try {
       await createEmployee(employeeData);
 
       // reset values
@@ -77,18 +61,20 @@ export default class EmployeeCreate extends Component {
     return (
       <React.Fragment>
         <Navbar />
-        <Container className="my-5">
-          <h4 className="mb-4 fs-4 fw-normal">Employee Onboarding Form</h4>
+        <Container className="mt-5">
+          <h5 className="pb-2">Employee Onboarding Form</h5>
           {errorlist.length > 0 && (
-            <Alert variant="danger" className="h-25">
-              {errorlist.map((error, index) => (
-                <p key={index}>{error}</p>
-              ))}
+            <Alert variant="danger">
+              {errorlist.map((error, index) => <p key={index}>{error}</p>)}
             </Alert>
           )}
-          {message && <Alert variant="success">{message}</Alert>}
+          {message && (
+            <Alert variant="success">
+              {message}
+            </Alert>
+          )}
           <Form onSubmit={this.createForm} className="form bg-light p-5">
-            <Row className="mb-4">
+            <Row className="mb-3">
               <Col>
                 <Form.Label htmlFor="firstname">First Name:</Form.Label>
                 <Form.Control type="text" id="firstname" name="firstName" />
@@ -104,17 +90,11 @@ export default class EmployeeCreate extends Component {
                 <Form.Control type="number" id="age" name="age" />
               </Col>
               <Col>
-                <Form.Label htmlFor="dateOfJoining">
-                  Date of Joining:
-                </Form.Label>
-                <Form.Control
-                  type="date"
-                  id="dateOfJoining"
-                  name="dateOfJoining"
-                />
+                <Form.Label htmlFor="dateOfJoining">Date of Joining:</Form.Label>
+                <Form.Control type="date" id="dateOfJoining" name="dateOfJoining" />
               </Col>
             </Row>
-            <Row className="mb-5">
+            <Row className="mb-4">
               <Col>
                 <Form.Label htmlFor="title">Title:</Form.Label>
                 <Form.Select id="title" name="title">
@@ -133,6 +113,8 @@ export default class EmployeeCreate extends Component {
                   <option value="Marketing">Marketing</option>
                 </Form.Select>
               </Col>
+            </Row>
+            <Row className="mb-5">
               <Col>
                 <Form.Label htmlFor="employeeType">Employee Type:</Form.Label>
                 <Form.Select id="employeeType" name="employeeType">
@@ -143,9 +125,7 @@ export default class EmployeeCreate extends Component {
                 </Form.Select>
               </Col>
             </Row>
-            <Button variant="outline-dark" type="submit" className="w-25">
-              Create Employee
-            </Button>
+            <Button variant="outline-dark" type="submit" className="w-25">Create Employee</Button>
           </Form>
         </Container>
       </React.Fragment>
