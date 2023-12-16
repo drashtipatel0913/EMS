@@ -29,14 +29,19 @@ const HomePage = () => {
             <Card.Title>Filters</Card.Title>
             <Card.Text>
               Utilize filters to narrow down your employee search:
-              <div>
-                <ul>
-                  <li>Filter by Department</li>
-                  <li>Filter by Title</li>
-                  <li>Filter by Employee Type</li>
-                  <li>Filter by Current Status</li>
-                  <li>Filter by Upcoming Retirement</li>
-                </ul>
+              <div className="row mt-1">
+                <div className="col-6">
+                  <ul>
+                    <li>Filter by Department or Title</li>
+                    <li>Filter by Employee Type</li>
+                  </ul>
+                </div>
+                <div className="col-6">
+                  <ul>
+                    <li>Filter by Current Status</li>
+                    <li>Filter by Upcoming Retirement</li>
+                  </ul>
+                </div>
               </div>
             </Card.Text>
           </Card.Body>
@@ -48,15 +53,21 @@ const HomePage = () => {
             <Card.Text>
               To get started, click on the navigation links to access different
               features:
-              <div>
-                <ul>
-                  <li>Create Employee - Add a new employee to the system.</li>
+              <div className="row mt-2">
+                <div className="col-6">
+                  <ul>
+                    <li>Create Employee - Add a new employee to the system.</li>
                   <li>
                     View Employees - Explore the list of existing employees.
                   </li>
-                  <li>Update Employee - Modify employee information.</li>
+                  </ul>
+                </div>
+                <div className="col-6">
+                  <ul>
+                    <li>Update Employee - Modify employee information.</li>
                   <li>Delete Employee - Remove an employee from the system.</li>
-                </ul>
+                  </ul>
+                </div>
               </div>
               Use the provided filters to customize your employee search.
             </Card.Text>
