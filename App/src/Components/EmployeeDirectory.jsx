@@ -1,137 +1,86 @@
-import React, { Component } from "react";
-import EmployeeSearch from "./EmployeeSearch.jsx";
-import EmployeeTable from "./EmployeeTable.jsx";
-import EmployeeCreate from "./EmployeeCreate.jsx";
-import EmployeeFilter from "./EmployeeFilter.jsx";
-import {
-  filterByTitle,
-  filterByDepartment,
-  filterByEmployeeType,
-  filterByCurrentStatus,
-} from "../Services/FilterService.js";
+import React from "react";
+import { Link, NavLink } from "react-router-dom";
+import Navbar from "./react-bootstrap/Navbar.jsx";
+import Container from "react-bootstrap/Container";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
-const UI_API_ENDPOINT = process.env.UI_API_ENDPOINT;
+const HomePage = () => {
+  return (
+    <React.Fragment>
+      <Navbar />
+      <Container className="mt-3">
+        <h3 className="text-center">
+          Welcome to the Employee Management System
+        </h3>
 
-export default class EmployeeDirectory extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      employees: [],
-    };
-    this.createEmployee = this.createEmployee.bind(this);
-    this.getemployees = this.getemployees.bind(this);
-  }
+        <Card className="my-3">
+          <Card.Body>
+            <Card.Title>Employee Operations</Card.Title>
+            <Card.Text>
+              Manage employees with features like creating, updating, viewing,
+              and deleting employee records.
+            </Card.Text>
+          </Card.Body>
+        </Card>
 
-  getemployees() {
-    fetch(UI_API_ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        query: `
-               query GetEmployees {
-                  getEmployees {
-                     id
-                     firstName
-                     lastName
-                     age
-                     dateOfJoining
-                     title
-                     department
-                     employeeType
-                     currentStatus
-                  }
-               }
-           `,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        this.setState({ employees: data.data.getEmployees });
-      })
-      .catch((error) => {
-        console.error("GraphQL error:", error);
-      });
-  }
+        <Card className="my-3">
+          <Card.Body>
+            <Card.Title>Filters</Card.Title>
+            <Card.Text>
+              Utilize filters to narrow down your employee search:
+              <div>
+                <ul>
+                  <li>Filter by Department</li>
+                  <li>Filter by Title</li>
+                  <li>Filter by Employee Type</li>
+                  <li>Filter by Current Status</li>
+                  <li>Filter by Upcoming Retirement</li>
+                </ul>
+              </div>
+            </Card.Text>
+          </Card.Body>
+        </Card>
 
-  componentDidMount() {
-    this.getemployees();
-  }
+        <Card className="mt-3">
+          <Card.Body>
+            <Card.Title>Get Started</Card.Title>
+            <Card.Text>
+              To get started, click on the navigation links to access different
+              features:
+              <div>
+                <ul>
+                  <li>Create Employee - Add a new employee to the system.</li>
+                  <li>
+                    View Employees - Explore the list of existing employees.
+                  </li>
+                  <li>Update Employee - Modify employee information.</li>
+                  <li>Delete Employee - Remove an employee from the system.</li>
+                </ul>
+              </div>
+              Use the provided filters to customize your employee search.
+            </Card.Text>
+            <Button
+              variant="outline-primary"
+              as={NavLink}
+              to="/create-employee"
+              className="me-3 text-dark"
+            >
+              Create Employee
+            </Button>
+            <Button
+              variant="outline-info"
+              as={NavLink}
+              to="/view-employee"
+              className="text-dark"
+            >
+              View Employees
+            </Button>
+          </Card.Body>
+        </Card>
+      </Container>
+    </React.Fragment>
+  );
+};
 
-  createEmployee(inputdata) {
-    fetch(UI_API_ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        query: `mutation CreateEmployee($employeeInput: employeeInput) {
-                  createEmployee(employeeInput: $employeeInput) {
-                    id
-                    firstName
-                    lastName
-                    age
-                    dateOfJoining
-                    title
-                    department
-                    employeeType
-                    currentStatus
-                  }
-                }`,
-        variables: { employeeInput: inputdata },
-      }),
-    })
-      .then((res) => res.json())
-      .then(function (res) {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.error("GraphQL error:", error);
-      });
-    this.getemployees();
-  }
-
-  handleFilterByTitle = (title) => {
-    filterByTitle(title, this.getemployees, this.setState.bind(this));
-  };
-
-  handleFilterByDepartment = (department) => {
-    filterByDepartment(department, this.getemployees, this.setState.bind(this));
-  };
-
-  handleFilterByEmployeeType = (employeeType) => {
-    filterByEmployeeType(
-      employeeType,
-      this.getemployees,
-      this.setState.bind(this)
-    );
-  };
-
-  handleFilterByStatus = (status) => {
-    filterByCurrentStatus(status, this.getemployees, this.setState.bind(this));
-  };
-
-  render() {
-    const departments = ["IT", "Marketing", "HR", "Engineering"];
-    const titles = ["Director", "Employee", "VP", "Manager"];
-    const employeeTypes = ["FullTime", "PartTime", "Contract", "Seasonal"];
-
-    return (
-      <React.Fragment>
-        <h1 className="text-center m-3">Employee Management System</h1>
-        <EmployeeSearch />
-        <EmployeeFilter
-          departments={departments}
-          titles={titles}
-          employeeTypes={employeeTypes}
-          filterByTitle={this.handleFilterByTitle}
-          filterByDepartment={this.handleFilterByDepartment}
-          filterByEmployeeType={this.handleFilterByEmployeeType}
-          filterByStatus={this.handleFilterByStatus}
-        />
-        <EmployeeTable
-          employees={this.state.employees}
-          getemployees={this.getemployees}
-        />
-        <EmployeeCreate createEmployee={this.createEmployee} />
-      </React.Fragment>
-    );
-  }
-}
+export default HomePage;
