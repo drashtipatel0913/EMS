@@ -1,66 +1,27 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Container, Button, Table, Alert } from "react-bootstrap";
-import EmployeeFilter from "./EmployeeFilter.jsx";
 import Navbar from "./react-bootstrap/Navbar.jsx";
+import { Link } from "react-router-dom";
+import { Container, Table, Button, Alert } from "react-bootstrap";
 import {
-  getEmployees,
+  getUpcomingRetirements,
   deleteEmployee,
-  isEmployeeActive,
+  getEmployees
 } from "../Services/employeeService";
-import {
-  filterByTitle,
-  filterByDepartment,
-  filterByEmployeeType,
-  filterByCurrentStatus,
-  filterByUpcoming,
-} from "../Services/filterService"
 
-export default class EmployeeTable extends Component {
+export default class EmployeeRetirement extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      employees: [],
+      employees: [], // Add an empty array for employees
+      upcomingRetirements: [],
+      message: "", // Initialize an empty message
     };
   }
 
-  handleFilterByTitle = (title) => {
-    filterByTitle(title, this.fetchEmployees, this.setState.bind(this));
-  };
-
-  handleFilterByDepartment = (department) => {
-    filterByDepartment(
-      department,
-      this.fetchEmployees,
-      this.setState.bind(this)
-    );
-  };
-
-  handleFilterByEmployeeType = (employeeType) => {
-    filterByEmployeeType(
-      employeeType,
-      this.fetchEmployees,
-      this.setState.bind(this)
-    );
-  };
-
-  handleFilterByStatus = (status) => {
-    filterByCurrentStatus(
-      status,
-      this.fetchEmployees,
-      this.setState.bind(this)
-    );
-  };
-
-  handleFilterByUpcoming = (upcoming) => {
-    filterByUpcoming(
-    upcoming,
-    this.fetchEmployees,
-    this.setState.bind(this));
-  };
-
   componentDidMount() {
+    // Fetch both employees and upcoming retirements
     this.fetchEmployees();
+    this.fetchUpcomingRetirements();
   }
 
   async fetchEmployees() {
@@ -72,13 +33,30 @@ export default class EmployeeTable extends Component {
     }
   }
 
+  async fetchUpcomingRetirements() {
+    try {
+      const upcomingRetirements = await getUpcomingRetirements();
+      this.setState({ upcomingRetirements });
+    } catch (error) {
+      console.error("Error fetching upcoming retirements:", error);
+    }
+  }
+
   async doDelete(employeeId) {
     try {
       const employee = this.state.employees.find(
         (emp) => emp.id === employeeId
       );
 
-      if (isEmployeeActive(employee)) {
+      if (!employee) {
+        // If the employee is not found, display an error message
+        this.setState({
+          message: "Employee not found",
+        });
+        return;
+      }
+
+      if (employee.currentStatus) {
         // If the employee is active, display an error message
         this.setState({
           message: "CAN'T DELETE EMPLOYEE - STATUS ACTIVE",
@@ -93,7 +71,7 @@ export default class EmployeeTable extends Component {
           this.setState({
             message: "Employee Data Deleted Successfully!",
           });
-          this.fetchEmployees();
+          this.fetchUpcomingRetirements(); // Fetch updated retirements after deletion
         }
       }
     } catch (error) {
@@ -102,16 +80,12 @@ export default class EmployeeTable extends Component {
   }
 
   render() {
-    const departments = ["IT", "Marketing", "HR", "Engineering"];
-    const titles = ["Director", "Employee", "VP", "Manager"];
-    const employeeTypes = ["FullTime", "PartTime", "Contract", "Seasonal"];
-
-    const rows = this.state.employees.map((row) => {
-      const dateOfJoining = new Date(row.dateOfJoining);
+    const rows = this.state.upcomingRetirements.map((employee) => {
+      const dateOfJoining = new Date(employee.dateOfJoining);
       return (
-        <tr key={row.id}>
-          <td>{row.firstName}</td>
-          <td>{row.lastName}</td>
+        <tr key={employee.id}>
+          <td>{employee.firstName}</td>
+          <td>{employee.lastName}</td>
           <td>
             {dateOfJoining.toLocaleDateString("en-GB", {
               year: "numeric",
@@ -120,22 +94,25 @@ export default class EmployeeTable extends Component {
               timeZone: "UTC",
             })}
           </td>
-          <td>{row.age}</td>
-          <td>{row.title}</td>
-          <td>{row.employeeType}</td>
-          <td>{row.department}</td>
-          <td>{row.currentStatus ? "Working" : "Retired"}</td>
+          <td>{employee.age}</td>
+          <td>{employee.title}</td>
+          <td>{employee.employeeType}</td>
+          <td>{employee.department}</td>
+          <td>{employee.currentStatus ? "Working" : "Retired"}</td>
           <td>
             <Link
               className="btn btn-outline-info text-dark me-3"
-              to={"/Details/" + row.id}
+              to={"/Details/" + employee.id}
             >
               Details
             </Link>
-            <Link className="btn btn-primary me-3" to={"/Update/" + row.id}>
+            <Link
+              className="btn btn-primary me-3"
+              to={"/Update/" + employee.id}
+            >
               Update
             </Link>
-            <Button variant="danger" onClick={() => this.doDelete(row.id)}>
+            <Button variant="danger" onClick={() => this.doDelete(employee.id)}>
               Delete
             </Button>
           </td>
@@ -146,17 +123,9 @@ export default class EmployeeTable extends Component {
     return (
       <React.Fragment>
         <Navbar />
-        <Container className="mt-3">
-          <EmployeeFilter
-            departments={departments}
-            titles={titles}
-            employeeTypes={employeeTypes}
-            filterByTitle={this.handleFilterByTitle}
-            filterByDepartment={this.handleFilterByDepartment}
-            filterByEmployeeType={this.handleFilterByEmployeeType}
-            filterByStatus={this.handleFilterByStatus}
-            filterByUpcoming={this.handleFilterByUpcoming}
-          />
+        <Container className="mt-5">
+          <h5 className="pb-4">Upcoming Retirements</h5>
+
           {this.state.message && (
             <Alert variant="danger" className="mt-3">
               {this.state.message}

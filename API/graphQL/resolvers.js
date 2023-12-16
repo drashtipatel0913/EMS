@@ -41,7 +41,15 @@ module.exports = {
       },
       async getEmployeesByCurrentStatus(_, { currentStatus }) {
          return await Employee.find({ currentStatus: currentStatus })
-      }
+      },
+      async getEmployeesByUpcoming(_, { age}) {
+         try {
+            return await Employee.find({ age: { $gte: age } })
+         } catch ( error ) {
+            console.error('Error fetching employees by upcoming:', error);
+            throw new Error('Unable to fetch employees by upcoming');
+         }
+      },
    },
    Mutation: {
       async createEmployee(_, { employeeInput: { firstName, lastName, age, dateOfJoining, title, department, employeeType } }) {

@@ -183,5 +183,47 @@ const isEmployeeActive = (employee) => {
   return employee.currentStatus;
 };
 
+const getUpcomingRetirements = async () => {
+  const query = `
+    query GetEmployees {
+      getEmployees {
+        id
+        firstName
+        lastName
+        age
+        dateOfJoining
+        title
+        department
+        employeeType
+        currentStatus
+      }
+    }
+  `;
 
-export { getEmployees, createEmployee, updateEmployee, fetchEmployeeData, deleteEmployee, isEmployeeActive };
+  try {
+    const response = await fetch(UI_API_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query }),
+    });
+
+    const { data } = await response.json();
+
+    if (!data || !data.getEmployees) {
+      console.error("Invalid response structure:", data);
+      throw new Error("Invalid response structure");
+    }
+
+    // Filter employees based on age (60 years or older)
+    const upcomingRetirements = data.getEmployees.filter(
+      (employee) => employee.age >= 60
+    );
+
+    return upcomingRetirements;
+  } catch (error) {
+    console.error("Error fetching upcoming retirements:", error);
+    throw error;
+  }
+};
+
+export { getEmployees, createEmployee, updateEmployee, fetchEmployeeData, deleteEmployee, isEmployeeActive, getUpcomingRetirements };

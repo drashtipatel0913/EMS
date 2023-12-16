@@ -164,3 +164,42 @@ export const filterByCurrentStatus = (currentStatus, getemployees, setState) => 
       });
   }
 }
+
+export const filterByUpcoming = (upcoming, getemployees, setState) => {
+  if (upcoming === 'All') {
+    getemployees();
+  } else {
+    fetch(UI_API_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        query: `
+          query GetEmployeesByUpcoming($age: Int!) {
+            getEmployeesByUpcoming(age: $age) {
+              id
+              firstName
+              lastName
+              age
+              dateOfJoining
+              title
+              department
+              employeeType
+              currentStatus
+            }
+          }`,
+        variables: { age: 60 }, // You can adjust the age value as needed
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.errors) {
+          console.error("GraphQL errors:", data.errors);
+        } else {
+          setState({ employees: data.data.getEmployeesByUpcoming });
+        }
+      })
+      .catch((error) => {
+        console.error("GraphQL error:", error);
+      });
+  }
+};

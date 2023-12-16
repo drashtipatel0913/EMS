@@ -55,6 +55,7 @@ type Query{
    getEmployeesByDepartment(department: Department!): [Employee]
    getEmployeesByEmployeeType(employeeType: EmployeeType!): [Employee]
    getEmployeesByCurrentStatus(currentStatus: Boolean!): [Employee]
+   getEmployeesByUpcoming(age: Int): [Employee]
 }
 
 type Mutation{

@@ -29,6 +29,11 @@ export default class EmployeeFilter extends Component {
     this.props.filterByStatus(value);
   };
 
+  onRetirementChange = (e) => {
+    const { value } = e.target;
+    this.props.filterByUpcoming(value);
+  };
+
   render() {
     const { departments, titles, employeeTypes } = this.props;
 
@@ -87,6 +92,14 @@ export default class EmployeeFilter extends Component {
                 <option>Select Status</option>
                 <option value="Working">Working</option>
                 <option value="Retired">Retired</option>
+              </Form.Select>
+              <Form.Select
+                aria-label="Employee Retirement"
+                onChange={this.onRetirementChange}
+              >
+                <option>Select Upcoming</option>
+                <option value="All">All</option>
+                <option value="Retirement">Retirement</option>
               </Form.Select>
             </Form>
           </div>
