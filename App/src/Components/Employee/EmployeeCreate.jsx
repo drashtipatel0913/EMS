@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { createEmployee } from "../Services/employeeService.js";
-import Navbar from "./react-bootstrap/Navbar.jsx";
+import { createEmployee } from "../../Services/employeeServices.js";
+import Navbar from "../Layouts/Navbar.jsx";
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import { Button, Col, Row, Alert } from 'react-bootstrap';

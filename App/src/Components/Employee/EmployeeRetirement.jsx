@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import Navbar from "./react-bootstrap/Navbar.jsx";
+import Navbar from "../Layouts/Navbar.jsx";
 import { Link } from "react-router-dom";
 import { Container, Table, Button, Alert } from "react-bootstrap";
 import {
   getUpcomingRetirements,
   deleteEmployee,
   getEmployees
-} from "../Services/employeeService";
+} from "../../Services/employeeServices.js";
 
 export default class EmployeeRetirement extends Component {
   constructor(props) {

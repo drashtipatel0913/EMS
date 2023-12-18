@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import Navbar from "./react-bootstrap/Navbar.jsx";
+import Navbar from "../Layouts/Navbar.jsx";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";

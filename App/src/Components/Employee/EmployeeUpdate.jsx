@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { useParams, Link } from "react-router-dom";
-import Navbar from "./react-bootstrap/Navbar.jsx";
-import { updateEmployee, fetchEmployeeData } from "../Services/employeeService";
+import Navbar from "../Layouts/Navbar.jsx";
+import { updateEmployee, fetchEmployeeData } from "../../Services/employeeServices.js";
 import { Form, Button, Alert, Row, Col, Container } from "react-bootstrap";
 
 function wrapper(Component) {

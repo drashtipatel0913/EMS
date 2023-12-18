@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Navbar from "./react-bootstrap/Navbar.jsx";
+import Navbar from "../Layouts/Navbar.jsx";
 import { useParams, Link } from "react-router-dom";
 import { Container, Table } from "react-bootstrap";
-import { fetchEmployeeData } from "../Services/employeeService";
+import { fetchEmployeeData } from "../../Services/employeeServices.js";
 
 function wrapper(Component) {
   return (props) => <Component {...props} params={useParams()} />;
