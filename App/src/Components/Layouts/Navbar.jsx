@@ -37,6 +37,9 @@ function EmsNavbar() {
             <Nav.Link as={NavLink} to="/retirements" className="fw-bold">
               Upcoming Retirements
             </Nav.Link>
+            <Nav.Link as={NavLink} to="/dashboard" className="fw-bold">
+              Dashboard
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
