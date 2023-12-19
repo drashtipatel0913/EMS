@@ -15,11 +15,15 @@ export default class Dashboard extends Component {
             <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
               <Link
                 to="/dashboard"
-                className="d-flex align-items-center pb-3 mb-md-1 mt-md-3 me-md-auto text-white text-decoration-none"
+                style={{
+                  fontFamily:
+                    "Afacad, sans-serif, Klee One, cursive, Quicksand, sans-serif, Tangerine, cursive",
+                  fontSize: "2.5rem",
+                  
+                }}
+                  className="d-flex align-items-center pb-sm-3 mb-md-0 me-md-auto text-white text-decoration-none"
               >
-                <span className="fs-5 fw-bolder d-none d-sm-inline">
-                  Code With Yousof
-                </span>
+                EMS                
               </Link>
               <ul
                 className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
@@ -30,8 +34,8 @@ export default class Dashboard extends Component {
                     to="/dashboard"
                     className="nav-link text-white px-0 align-middle"
                   >
-                    <i className="fs-4 bi-speedometer2 ms-2"></i>
-                    <span className="ms-2 d-none d-sm-inline">Dashboard</span>
+                    <i className="fs-5 bi-speedometer2 ms-2"></i>
+                    <span className="ms-3 d-none d-sm-inline">Dashboard</span>
                   </Link>
                 </li>
                 <li className="w-100">
@@ -39,8 +43,8 @@ export default class Dashboard extends Component {
                     to="/dashboard/employee"
                     className="nav-link px-0 align-middle text-white"
                   >
-                    <i className="fs-4 bi-people ms-2"></i>
-                    <span className="ms-2 d-none d-sm-inline">
+                    <i className="fs-5 bi-people ms-2"></i>
+                    <span className="ms-3 d-none d-sm-inline">
                       Manage Employees
                     </span>
                   </Link>
@@ -50,8 +54,8 @@ export default class Dashboard extends Component {
                     to="/dashboard/category"
                     className="nav-link px-0 align-middle text-white"
                   >
-                    <i className="fs-4 bi-columns ms-2"></i>
-                    <span className="ms-2 d-none d-sm-inline">Category</span>
+                    <i className="fs-5 bi-columns ms-2"></i>
+                    <span className="ms-3 d-none d-sm-inline">Category</span>
                   </Link>
                 </li>
                 <li className="w-100">
@@ -59,14 +63,14 @@ export default class Dashboard extends Component {
                     to="/dashboard/profile"
                     className="nav-link px-0 align-middle text-white"
                   >
-                    <i className="fs-4 bi-person ms-2"></i>
-                    <span className="ms-2 d-none d-sm-inline">Profile</span>
+                    <i className="fs-5 bi-person ms-2"></i>
+                    <span className="ms-3 d-none d-sm-inline">Profile</span>
                   </Link>
                 </li>
                 <li className="w-100">
                   <Link className="nav-link px-0 align-middle text-white">
-                    <i className="fs-4 bi-power ms-2"></i>
-                    <span className="ms-2 d-none d-sm-inline">Logout</span>
+                    <i className="fs-5 bi-power ms-2"></i>
+                    <span className="ms-3 d-none d-sm-inline">Logout</span>
                   </Link>
                 </li>
               </ul>
