@@ -8,7 +8,7 @@ import EmployeeCreate from "./Components/Employee/EmployeeCreate.jsx";
 import EmployeeUpdate from "./Components/Employee/EmployeeUpdate.jsx";
 import EmployeeTable from "./Components/Employee/EmployeeTable.jsx";
 import EmployeeRetirement from "./Components/Employee/EmployeeRetirement.jsx";
-import D from "./Components/Layouts/Dashboard.jsx";
+import D from "./Components/Layouts/Dashboard/Index.jsx";
 
 class App extends React.Component {
   render() {

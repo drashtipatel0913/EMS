@@ -17,7 +17,7 @@ const HomePage = () => {
         <Card className="my-3">
           <Card.Body>
             <Card.Title>Employee Operations</Card.Title>
-            <Card.Text>
+            <Card.Text as="div">
               Manage employees with features like creating, updating, viewing,
               and deleting employee records.
             </Card.Text>
@@ -27,7 +27,7 @@ const HomePage = () => {
         <Card className="my-3">
           <Card.Body>
             <Card.Title>Filters</Card.Title>
-            <Card.Text>
+            <Card.Text as="div">
               Utilize filters to narrow down your employee search:
               <div className="row mt-1">
                 <div className="col-6">
@@ -50,7 +50,7 @@ const HomePage = () => {
         <Card className="mt-3">
           <Card.Body>
             <Card.Title>Get Started</Card.Title>
-            <Card.Text>
+            <Card.Text as="div">
               To get started, click on the navigation links to access different
               features:
               <div className="row mt-2">
