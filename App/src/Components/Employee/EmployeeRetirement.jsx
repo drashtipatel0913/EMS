@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Navbar from "../Layouts/Navbar.jsx";
 import { Link } from "react-router-dom";
 import { Container, Table, Button, Alert } from "react-bootstrap";
 import {
@@ -122,7 +121,6 @@ export default class EmployeeRetirement extends Component {
 
     return (
       <React.Fragment>
-        <Navbar />
         <Container className="mt-5">
           <h5 className="pb-4">Upcoming Retirements</h5>
 

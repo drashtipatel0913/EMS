@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import Navbar from "../Layouts/Navbar.jsx";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
@@ -8,7 +7,6 @@ import Button from "react-bootstrap/Button";
 const HomePage = () => {
   return (
     <React.Fragment>
-      <Navbar />
       <Container className="mt-3">
         <h3 className="text-center">
           Welcome to the Employee Management System

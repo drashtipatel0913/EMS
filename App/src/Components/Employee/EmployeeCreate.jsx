@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { createEmployee } from "../../Services/employeeServices.js";
-import Navbar from "../Layouts/Navbar.jsx";
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import { Button, Col, Row, Alert } from 'react-bootstrap';
@@ -60,7 +59,6 @@ export default class EmployeeCreate extends Component {
 
     return (
       <React.Fragment>
-        <Navbar />
         <Container className="mt-5">
           <h5 className="pb-2">Employee Onboarding Form</h5>
           {errorlist.length > 0 && (
