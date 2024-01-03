@@ -1,7 +1,7 @@
 const { GraphQLScalarType } = require('graphql');
 const { Kind } = require('graphql/language');
 
-const Employee = require('../models/Employee')
+const Employee = require('../../models/Employee')
 
 const DateTimeResolver = new GraphQLScalarType({
 
