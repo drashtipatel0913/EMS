@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Container, Button, Table, Alert } from "react-bootstrap";
 import EmployeeFilter from "./EmployeeFilter.jsx";
-import Navbar from "../Layouts/Navbar.jsx";
 import {
   getEmployees,
   deleteEmployee,
@@ -145,7 +144,6 @@ export default class EmployeeTable extends Component {
 
     return (
       <React.Fragment>
-        <Navbar />
         <Container className="mt-3">
           <EmployeeFilter
             departments={departments}

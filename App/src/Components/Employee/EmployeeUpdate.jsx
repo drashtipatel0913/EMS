@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { useParams, Link } from "react-router-dom";
-import Navbar from "../Layouts/Navbar.jsx";
 import { updateEmployee, fetchEmployeeData } from "../../Services/employeeServices.js";
 import { Form, Button, Alert, Row, Col, Container } from "react-bootstrap";
 
@@ -138,7 +137,6 @@ class EmployeeUpdate extends Component {
 
     return (
       <React.Fragment>
-        <Navbar />
         <Container className="mt-5">
           {errorlist}
           <Form onSubmit={this.updateForm} className="form py-3">

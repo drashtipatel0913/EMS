@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Navbar from "../Layouts/Navbar.jsx";
 import { useParams, Link } from "react-router-dom";
 import { Container, Table } from "react-bootstrap";
 import { fetchEmployeeData } from "../../Services/employeeServices.js";
@@ -80,7 +79,6 @@ class EmployeeDetails extends Component {
     const timeLeftDays = this.state.timeLeft ? this.state.timeLeft.days : 0;
     return (
       <React.Fragment>
-        <Navbar />
         <Container className="mt-5">
           <h5 className="pb-4">Employee Details</h5>
           <Table
