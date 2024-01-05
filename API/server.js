@@ -24,6 +24,6 @@ server.start().then(() => {
    server.applyMiddleware({ app, path: "/graphql" });
    ConnectToDB();
    app.listen({ port }, () => {
-      console.log(`Server running at http://localhost:${port + server.graphqlPath}`);
+      console.log(`🚀 Server running at http://localhost:${port + server.graphqlPath}`);
    });
 })
