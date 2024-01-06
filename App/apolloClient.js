@@ -1,14 +1,14 @@
-require('dotenv').config();
-
+import { dotenv } from 'dotenv';
+dotenv.config();
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
-   uri: CLIENT_API_ENDPOINT
+   uri: process.env.CLIENT_API_ENDPOINT
 });
 
 const authLink = setContext((_, { headers }) => {
-   const token = localStorage.getItem('JWT');
+   const token = localStorage.getItem('token');
    return {
       headers: {
          ...headers,

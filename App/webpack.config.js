@@ -3,7 +3,7 @@ const DotenvWebpackPlugin = require('dotenv-webpack');
 
 module.exports = {
    mode: 'development',
-   entry: { app: './src/App.jsx' },
+   entry: { app: './src/Index.jsx' },
    output: {
       filename: '[name].bundle.js/main.js',
       path: resolve(__dirname, 'public'),
