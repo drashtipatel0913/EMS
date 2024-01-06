@@ -4,7 +4,7 @@
   "description": "Employee Management System with GraphQL API, Apollo Server and React",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -w UIServer.js -w .env UIServer.js",
+    "start": "nodemon -w server.js -w .env server.js",
     "compile": "webpack --mode production",
     "watch": "webpack --watch"
   },
@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@apollo/react-hooks": "^4.0.0",
     "apollo-server": "^3.13.0",
     "apollo-server-express": "^3.13.0",
     "babel-polyfill": "^6.26.0",
@@ -19,6 +20,7 @@
     "bootstrap-icons": "^1.11.2",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "jwt-decode": "^4.0.0",
     "mongodb": "^6.3.0",
     "nodemon": "^3.0.1",
     "react": "^18.2.0",

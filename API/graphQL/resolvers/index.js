@@ -1,9 +1,13 @@
-const Mutation = require('../mutations/index');
-const Query = require('../queries/index');
-const DateTime = require('../scalarTypes/index');
+const employeeResolvers = require('./employees')
+const usersResolvers = require('./users')
 
 module.exports = {
-   DateTime: DateTime,
-   Query: Query,
-   Mutation: Mutation
-}
+    Query: {
+        ...employeeResolvers.Query,
+        ...usersResolvers.Query
+    },
+    Mutation: {
+        ...employeeResolvers.Mutation,
+        ...usersResolvers.Mutation
+    },
+};

@@ -48,7 +48,27 @@ input employeeInput{
    currentStatus: Boolean
 }
 
+type User{
+   id: ID!
+   username: String
+   email: String
+   password: String
+   token: String
+}
+
+input UserInput{
+   username: String
+   email: String
+   password: String
+}
+
+input LoginInput{
+   email: String
+   password: String
+}
+
 type Query{
+   # Employee Queries
    employee(ID: ID!): Employee!
    getEmployees(amount: Int): [Employee]
    getEmployeesByTitle(title: Title!): [Employee]
@@ -56,11 +76,16 @@ type Query{
    getEmployeesByEmployeeType(employeeType: EmployeeType!): [Employee]
    getEmployeesByCurrentStatus(currentStatus: Boolean!): [Employee]
    getEmployeesByUpcoming(age: Int): [Employee]
+
+   # User Queries
+   getUser(ID: ID!): User!
 }
 
 type Mutation{
    createEmployee(employeeInput: employeeInput): Employee!
    deleteEmployee(ID: ID!):Boolean
    updateEmployee(ID: ID!, employeeInput: employeeInput): Boolean
+   registerUser(userInput: UserInput): User
+   loginUser(loginInput: LoginInput): User
 }
 `

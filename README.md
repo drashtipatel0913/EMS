@@ -67,9 +67,9 @@ Ensure you have the following installed on your local machine:
 2. Create a `.env` file in the frontend directory and set the following variables:
 
     ```env
-    UI_SERVER_PORT = 8000
+    CLIENT_SERVER_PORT = 8000
 
-    UI_API_ENDPOINT= http://localhost:3001/graphql  # Assuming backend runs on the same machine
+    CLIENT_API_ENDPOINT= http://localhost:3001/graphql  # Assuming backend runs on the same machine
     ```
 
 3. Install dependencies:
