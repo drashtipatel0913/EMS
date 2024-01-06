@@ -1,7 +1,6 @@
-import { dotenv } from 'dotenv';
-dotenv.config();
+require('dotenv').config({ path: './.env' })
 
-const PORT = process.env.CLIENT_SERVER_PORT || 8000
+const PORT = process.env.CLIENT_SERVER_PORT
 
 const express = require('express');
 const app = express();
