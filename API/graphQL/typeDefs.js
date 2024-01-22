@@ -56,7 +56,7 @@ type User{
    token: String
 }
 
-input UserInput{
+input RegisterInput{
    username: String
    email: String
    password: String
@@ -78,14 +78,14 @@ type Query{
    getEmployeesByUpcoming(age: Int): [Employee]
 
    # User Queries
-   getUser(ID: ID!): User!
+   user(iD: ID!): User
 }
 
 type Mutation{
    createEmployee(employeeInput: employeeInput): Employee!
    deleteEmployee(ID: ID!):Boolean
    updateEmployee(ID: ID!, employeeInput: employeeInput): Boolean
-   registerUser(userInput: UserInput): User
+   registerUser(registerInput: RegisterInput): User
    loginUser(loginInput: LoginInput): User
 }
 `

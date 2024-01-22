@@ -8,13 +8,13 @@ const User = require('../../models/User')
 
 module.exports = {
    Mutation: {
-      async registerUser(_, { userInput: { username, email, password } }) {
+      async registerUser(_, { registerInput: { username, email, password } }) {
          // See if an old user exists with the same email attempting to register
          const oldUser = await User.findOne({ email })
 
          // Throw error if that user exists
          if (oldUser) {
-            throw new ApolloError('User already exists with the email' + email, 'USER_EXISTS')
+            throw new ApolloError('User already exists with the email' + email, 'USER_ALREADY_EXISTS')
 
          }
 
@@ -26,18 +26,15 @@ module.exports = {
             username: username,
             email: email.toLowerCase(),
             password: hashedPassword,
-            createdAt: new Date().toISOString()
          })
 
          // Create JWT (attach to User model)
          const token = jwt.sign(
-            {
-               id: newUser._id,
-               email: newUser.email,
-            },
+            { id: newUser._id, email },
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
          )
+
          newUser.token = token
 
          // Save user to DB
@@ -54,13 +51,10 @@ module.exports = {
          const user = await User.findOne({ email })
 
          // Throw error if user doesn't exist
-         if (user && await bcrypt.compare(password, user.password)) {
+         if (user && (await bcrypt.compare(password, user.password))) {
             // Create JWT 
             const token = jwt.sign(
-               {
-                  id: user._id,
-                  email: user.email,
-               },
+               { id: user._id, email },
                process.env.JWT_SECRET,
                { expiresIn: '1h' }
             )
@@ -71,15 +65,13 @@ module.exports = {
                id: user._id,
                ...user._doc
             }
-         }else{
+         } else {
             // Throw error if user doesn't exist
             throw new ApolloError('Wrong credentials', "INVALID_CREDENTIALS")
          }
       },
    },
    Query: {
-      async getUser(_, { ID }) {
-         return await User.findById(ID)
-      },
+      user: (_, { ID }) => User.findById(ID)
    }
 }
