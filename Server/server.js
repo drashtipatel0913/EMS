@@ -1,19 +1,16 @@
-require('dotenv').config()
-
 const cors = require('cors');
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express')
 
-const { ConnectToDB } = require('./db')
+const { dbConnection } = require('./db/connection/index')
 
 const app = express();
 app.use(cors());
-app.use(express.static('public'));
 
-const port = process.env.API_SERVER_PORT || 3000
+const port = process.env.API_SERVER_PORT
 
-const typeDefs = require('./graphQL/typeDefs')
-const resolvers = require('./graphQL/resolvers')
+const typeDefs = require('./graphQL/types/index')
+const resolvers = require('./graphQL/resolvers/index')
 
 const server = new ApolloServer({
    typeDefs,
@@ -22,7 +19,7 @@ const server = new ApolloServer({
 
 server.start().then(() => {
    server.applyMiddleware({ app, path: "/graphql" });
-   ConnectToDB();
+   dbConnection();
    app.listen({ port }, () => {
       console.log(`🚀 Server running at http://localhost:${port + server.graphqlPath}`);
    });
