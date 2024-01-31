@@ -1,5 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Context/authContext.js";
+import { useContext } from "react";
 
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -59,6 +61,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+  const { user, logout } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
+  console.log(user);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -83,34 +94,47 @@ export default function PrimarySearchAppBar() {
   };
 
   const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>
-        <Link to="/login" style={{ textDecoration: "none", color: "inherit" }}>  
-          Login
-        </Link>
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <Link to="/register" style={{ textDecoration: "none", color: "inherit" }}>  
-          Register
-        </Link>
-      </MenuItem>
-    </Menu>
-  );
+ const renderMenu = (
+  <Menu
+    anchorEl={anchorEl}
+    anchorOrigin={{
+      vertical: "top",
+      horizontal: "right",
+    }}
+    id={menuId}
+    keepMounted
+    transformOrigin={{
+      vertical: "top",
+      horizontal: "right",
+    }}
+    open={isMenuOpen}
+    onClose={handleMenuClose}
+  >
+    {user ? (
+      [
+        <MenuItem key="logout" onClick={handleMenuClose}>
+          <Link onClick={handleLogout} style={{ textDecoration: "none", color: "inherit" }}>
+            Logout
+          </Link>
+        </MenuItem>,
+      ]
+    ) : (
+      [
+        <MenuItem key="login" onClick={handleMenuClose}>
+          <Link to="/login" style={{ textDecoration: "none", color: "inherit" }}>
+            Login
+          </Link>
+        </MenuItem>,
+        <MenuItem key="register" onClick={handleMenuClose}>
+          <Link to="/register" style={{ textDecoration: "none", color: "inherit" }}>
+            Register
+          </Link>
+        </MenuItem>,
+      ]
+    )}
+  </Menu>
+);
+
 
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (

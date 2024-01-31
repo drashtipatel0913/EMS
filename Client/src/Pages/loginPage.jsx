@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useContext, useState } from "react";
-import { AuthContext } from "../Context/authContext.js";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Context/authContext.js";
 import { useForm } from "../Utilities/hooks.js";
 import { useMutation } from "@apollo/react-hooks";
 
@@ -23,9 +23,9 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Alert } from "@mui/material";
 
-const REGISTER_USER = gql`
-  mutation Mutation($registerInput: RegisterInput) {
-    registerUser(registerInput: $registerInput) {
+const LOGIN_USER = gql`
+  mutation login($loginInput: LoginInput) {
+    loginUser(loginInput: $loginInput) {
       email
       username
       token
@@ -51,36 +51,33 @@ function Copyright(props) {
   );
 }
 
-function Register(props) {
-
+function Login(props) {
   const context = useContext(AuthContext);
   let navigate = useNavigate();
   const [errors, setErrors] = useState([]);
 
-  const registerUserCallback = () => {
+   const loginUserCallback = () => {
     console.log("Callback Hit");
-    registerUser();
-  };
+    loginUser();
+  }
 
-  const { onChange, onSubmit, values } = useForm(registerUserCallback, {
-    username: '',
+  const { onChange, onSubmit, values } = useForm(loginUserCallback, {
     email: '',
     password: '',
-    confirmPassword: '',
-  });
+  })
 
-  const [registerUser, { loading }] = useMutation(REGISTER_USER, {
-    update(proxy, { data: { registerUser: userData } }) {
+  const [loginUser, { loading }] = useMutation(LOGIN_USER, {
+    update(proxy, { data: { loginUser: userData } }) {
       context.login(userData);
       navigate("/");
     },
     onError({ graphQLErrors }) {
       setErrors(graphQLErrors);
     },
-    variables: { registerInput: values },
-  });
+    variables: { loginInput: values },
+  })
 
-  const defaultTheme = createTheme();
+const defaultTheme = createTheme();
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -108,17 +105,6 @@ function Register(props) {
               margin="normal"
               required
               fullWidth
-              name="username"
-              label="Username"
-              type="text"
-              id="username"
-              autoFocus
-              onChange={onChange}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
               id="email"
               label="Email Address"
               name="email"
@@ -136,17 +122,7 @@ function Register(props) {
               autoComplete="current-password"
               onChange={onChange}
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="confirmPassword"
-              label="Confirm Password"
-              type="password"
-              id="cpassword"
-              autoComplete="current-password"
-              onChange={onChange}
-            />
+            
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -166,8 +142,8 @@ function Register(props) {
                 </Link>
               </Grid>
               <Grid item>
-                <Link to="/login" variant="body2">
-                  {"Already have an account? Log In"}
+                <Link to="/register" variant="body2">
+                  {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
@@ -177,6 +153,7 @@ function Register(props) {
       </Container>
     </ThemeProvider>
   );
+
 }
 
-export default Register;
+export default Login;
