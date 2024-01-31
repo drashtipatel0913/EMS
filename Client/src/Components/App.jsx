@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Routes, Route } from "react-router-dom";
-import HomePage from "./Pages/homePage.jsx";
-import RegisterPage from "./Pages/registerPage.jsx";
-import LoginPage from "./Pages/loginPage.jsx";
+import HomePage from "../Pages/homePage.jsx";
+import RegisterPage from "../Pages/registerPage.jsx";
+import LoginPage from "../Pages/loginPage.jsx";
 
 export default class App extends Component {
   render() {
