@@ -1,18 +1,21 @@
 # Employee Management System
+
 Employee Management System with GraphQL API, Apollo Server and React
 
--------------
+---
+
 ## Technology used :
 
- ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
- ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
- ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
- ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
- ![Babel](https://img.shields.io/badge/Babel-F9DC3e?style=for-the-badge&logo=babel&logoColor=black)
- ![Apollo-GraphQL](https://img.shields.io/badge/-ApolloGraphQL-311C87?style=for-the-badge&logo=apollo-graphql)
- ![Webpack](https://img.shields.io/badge/webpack-%238DD6F9.svg?style=for-the-badge&logo=webpack&logoColor=black)
- ![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
--------------
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Babel](https://img.shields.io/badge/Babel-F9DC3e?style=for-the-badge&logo=babel&logoColor=black)
+![Apollo-GraphQL](https://img.shields.io/badge/-ApolloGraphQL-311C87?style=for-the-badge&logo=apollo-graphql)
+![Webpack](https://img.shields.io/badge/webpack-%238DD6F9.svg?style=for-the-badge&logo=webpack&logoColor=black)
+![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
+
+---
 
 ## Prerequisites
 
@@ -26,69 +29,73 @@ Ensure you have the following installed on your local machine:
 
 ### Backend
 
-1. Navigate to the backend directory:
+1.  Navigate to the backend directory:
 
     ```bash
-    cd API
+    cd Server
     ```
 
-2. Create a `.env` file in the backend directory and set the following variables:
+2.  Create a `.env` file in the backend directory and set the following variables:
 
-    ```env
-    # DB
-    DB_URL= "mongodb+srv://admin:admin@cluster0.hnixyaw.mongodb.net/EMS?retryWrites=true&w=majority"
+        ```env
+        # DB
+        DB_URL= "mongodb+srv://admin:admin@cluster0.hnixyaw.mongodb.net/EMS?retryWrites=true&w=majority"
 
-    ## Server Port
-    API_SERVER_PORT= 3001
+        ## Server Port
+        API_SERVER_PORT= 3001
+
+        ## JWT Key
+        JWT_SECRET= "Haunted Key"
     ```
-      (note: Here I am using mondo DB atlas which provides a free cloud-based database so you can paste the URL provided by the atlas or you can install your own database)
+    (note: Here I am using mondo DB atlas which provides a free cloud-based database so you can paste the URL provided by the atlas or you can install your own database)
 
-3. Install dependencies:
+3.  Install dependencies:
 
     ```bash
     npm install
     ```
 
-4. Run the backend server:
+4.  Run the backend server:
 
     ```bash
     npm start
     ```
-5. Open your browser and visit [http://localhost:3001/graphql](http://localhost:3001/graphql) to explore the GraphQL playground.
+
+5.  Open your browser and visit [http://localhost:3001/graphql](http://localhost:3001/graphql) to explore the GraphQL playground.
 
 ### Frontend
 
 1. Navigate to the frontend directory:
 
-    ```bash
-    cd App
-    ```
+   ```bash
+   cd App
+   ```
 
 2. Create a `.env` file in the frontend directory and set the following variables:
 
-    ```env
-    CLIENT_SERVER_PORT = 8000
+   ```env
+   CLIENT_SERVER_PORT = 8000
 
-    CLIENT_API_ENDPOINT= http://localhost:3001/graphql  # Assuming backend runs on the same machine
-    ```
+   CLIENT_API_ENDPOINT= http://localhost:3001/graphql  # Assuming backend runs on the same machine
+   ```
 
 3. Install dependencies:
 
-    ```bash
-    npm install
-    ```
-    
+   ```bash
+   npm install
+   ```
+
 4. Run webpack in watch mode:
 
-    ```bash
-    npm run watch
-    ```
+   ```bash
+   npm run watch
+   ```
 
 5. In a separate terminal, run the frontend development server:
 
-    ```bash
-    npm start
-    ```
+   ```bash
+   npm start
+   ```
 
 6. Open your browser and visit [http://localhost:8000](http://localhost:8000) to explore the Employee Management System frontend.
 
