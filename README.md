@@ -1,9 +1,8 @@
 # Employee Management System
 
-Employee Management System with GraphQL API, Apollo Server and React
+A tool that will help organize employee data and key functions, including recruitment & onboarding, time and attendance tracking, performance management, training & development, payroll, and benefits administration.
 
 ---
-
 ## Technology used :
 
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
