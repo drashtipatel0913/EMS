@@ -1,6 +1,6 @@
 # Employee Management System
 
-A tool that will help organize employee data and key functions, including recruitment & onboarding, time and attendance tracking, performance management, training & development, payroll, and benefits administration.
+Employee Management System with GraphQL API and React
 
 ---
 ## Technology used :
