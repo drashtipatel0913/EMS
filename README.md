@@ -43,7 +43,6 @@ Ensure you have the following installed on your local machine:
 
 2.  Create a `.env` file in the backend directory and set the following variables:
 
-        ```env
         # DB
         DB_URL= "mongodb+srv://admin:admin@cluster0.hnixyaw.mongodb.net/EMS?retryWrites=true&w=majority"
 
