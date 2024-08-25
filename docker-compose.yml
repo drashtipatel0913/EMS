@@ -3,6 +3,14 @@
 # This service is built from the Dockerfile in the Server directory of Root Directory.
 services:
   server:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.temp-apache.rule=Host(`api.quinpoolwellnesscentre.ca`) || Host(`www.api.quinpoolwellnesscentre.ca`)"
+      - "traefik.http.routers.temp-apache.entrypoints=https"
+      - "traefik.http.routers.temp-apache.tls=true"
+      - "traefik.http.routers.temp-apache.tls.certresolver=cloudflare"
+    networks:
+      - reverse-proxy
     build:
       context: ./Server
     ports:
