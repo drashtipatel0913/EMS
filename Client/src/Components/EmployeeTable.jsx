@@ -2,19 +2,18 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Container, Button, Table, Alert } from "react-bootstrap";
 import EmployeeFilter from "./EmployeeFilter.jsx";
-import Navbar from "./react-bootstrap/Navbar.jsx";
 import {
   getEmployees,
   deleteEmployee,
   isEmployeeActive,
-} from "../Services/employeeService";
+} from "../Utilities/employeeCRUD.js";
 import {
   filterByTitle,
   filterByDepartment,
   filterByEmployeeType,
   filterByCurrentStatus,
   filterByUpcoming,
-} from "../Services/filterService"
+} from "../Utilities/filter.js"
 
 export default class EmployeeTable extends Component {
   constructor(props) {
@@ -145,7 +144,6 @@ export default class EmployeeTable extends Component {
 
     return (
       <React.Fragment>
-        <Navbar />
         <Container className="mt-3">
           <EmployeeFilter
             departments={departments}

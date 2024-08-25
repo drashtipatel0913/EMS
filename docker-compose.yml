@@ -1,0 +1,9 @@
+# Here the instructions define your application as a service called "server".
+
+# This service is built from the Dockerfile in the Server directory of Root Directory.
+services:
+  server:
+    build:
+      context: ./Server
+    ports:
+      - 3000:3001

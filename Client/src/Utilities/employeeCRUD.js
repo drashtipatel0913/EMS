@@ -1,9 +1,9 @@
 // EmployeeService.js
-const UI_API_ENDPOINT = process.env.UI_API_ENDPOINT;
+const ENDPOINT = process.env.CLIENT_API_ENDPOINT;
 
 const getEmployees = async () => {
   try {
-    const response = await fetch(UI_API_ENDPOINT, {
+    const response = await fetch(ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -35,7 +35,7 @@ const getEmployees = async () => {
 
 const createEmployee = async (employeeInput) => {
   try {
-    const response = await fetch(UI_API_ENDPOINT, {
+    const response = await fetch(ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -67,7 +67,7 @@ const createEmployee = async (employeeInput) => {
 };
 
 const fetchEmployeeData = (id) => {
-  return fetch(UI_API_ENDPOINT, {
+  return fetch(ENDPOINT, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -128,7 +128,7 @@ const fetchEmployeeData = (id) => {
 
 const updateEmployee = (id, employeeInput) => {
   console.log("updateEmployee:", id, employeeInput);
-  return fetch(UI_API_ENDPOINT, {
+  return fetch(ENDPOINT, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -155,7 +155,7 @@ const updateEmployee = (id, employeeInput) => {
 const deleteEmployee = async (id) => {
   const variables = { id: id };
   try {
-    const response = await fetch(UI_API_ENDPOINT, {
+    const response = await fetch(ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -201,7 +201,7 @@ const getUpcomingRetirements = async () => {
   `;
 
   try {
-    const response = await fetch(UI_API_ENDPOINT, {
+    const response = await fetch(ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query }),
