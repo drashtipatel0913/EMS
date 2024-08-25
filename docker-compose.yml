@@ -15,3 +15,8 @@ services:
       context: ./Server
     ports:
       - 3000:3001
+      
+networks:
+  reverse-proxy:
+    name: reverse-proxy
+    external: true
