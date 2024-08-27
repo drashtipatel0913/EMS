@@ -27,9 +27,9 @@ const server = new ApolloServer({
 })
 
 server.start().then(() => {
-   server.applyMiddleware({ app, path: "/graphql" });
+   server.applyMiddleware({ app, path: "/api/graphql" });
    ConnectToDB();
    app.listen({ port }, () => {
-      console.log(`🚀 Server running at http://localhost:${port}${server.graphqlPath}`);
+      console.log(`🚀 Server running at https://api.quinpoolwellnesscentre.ca/${server.graphqlPath}`);
    });
 })
