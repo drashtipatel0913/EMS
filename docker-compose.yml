@@ -7,14 +7,12 @@ services:
       - "traefik.http.routers.ems.rule=Host(`api.quinpoolwellnesscentre.ca`)"
       - "traefik.http.routers.ems.entrypoints=https"
       - "traefik.http.routers.ems.tls=true"
-      - "traefik.http.routers.ems.middlewares=ems-auth"
-      - "traefik.http.middlewares.ems-auth.basicauth.users=${GRAPHQL_CREDENTIALS}"
     networks:
       - reverse-proxy
     build:
       context: ./Server
     ports:
-      - 3000:3001
+      - 3000:3000
 
 networks:
   reverse-proxy:

@@ -1,3 +1,5 @@
+require('dotenv').config({ path: './.env' })
+
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
@@ -10,7 +12,7 @@ const authLink = setContext((_, { headers }) => {
    return {
       headers: {
          ...headers,
-         authorization: token || "",
+         authorization: token ? `Bearer ${token}` : "",
       }
    }
 })

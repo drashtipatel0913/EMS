@@ -1,4 +1,4 @@
-const UI_API_ENDPOINT = process.env.UI_API_ENDPOINT;
+const UI_API_ENDPOINT = process.env.CLIENT_API_ENDPOINT;
 
 export const filterByTitle = (title, getemployees, setState) => {
   if (title === "Select Title") {
