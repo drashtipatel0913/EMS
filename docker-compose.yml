@@ -1,21 +1,21 @@
-# Here the instructions define your application as a service called "server".
-
-# This service is built from the Dockerfile in the Server directory of Root Directory.
 services:
   server:
+    environment:
+      GRAPHQL_CREDENTIALS: ${GRAPHQL_CREDENTIALS}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.temp-apache.rule=Host(`api.quinpoolwellnesscentre.ca`) || Host(`www.api.quinpoolwellnesscentre.ca`)"
-      - "traefik.http.routers.temp-apache.entrypoints=https"
-      - "traefik.http.routers.temp-apache.tls=true"
-      - "traefik.http.routers.temp-apache.tls.certresolver=cloudflare"
+      - "traefik.http.routers.ems.rule=Host(`api.quinpoolwellnesscentre.ca`)"
+      - "traefik.http.routers.ems.entrypoints=https"
+      - "traefik.http.routers.ems.tls=true"
+      - "traefik.http.routers.ems.middlewares=ems-auth"
+      - "traefik.http.middlewares.ems-auth.basicauth.users=${GRAPHQL_CREDENTIALS}"
     networks:
       - reverse-proxy
     build:
       context: ./Server
     ports:
       - 3000:3001
-      
+
 networks:
   reverse-proxy:
     name: reverse-proxy
